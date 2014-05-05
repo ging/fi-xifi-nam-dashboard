@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(function () {
+	
+	
+    $('#container').highcharts({
+        chart: {
+            type: 'areaspline'
+        },
+        title: {
+            text: 'One-Way Delay'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 150,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: '#FFFFFF'
+        },
+        xAxis: {
+            categories: [
+                'min',
+                'mediun',
+                'max'               
+            ],
+            plotBands: [{ // visualize the weekend
+                from: -0.4,
+                to: 6.4,
+                color: 'rgba(68, 170, 213, .2)'
+            }]
+        },
+        yAxis: {
+            title: {
+                text: 'Delay (ms)'
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' ms'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.5
+            }
+        },
+        series: [{
+            name: 'one-way delay',
+            data: [<%=(isAvaliableSource.OWD[0])%>,<%=(isAvaliableSource.OWD[3])%>,<%=(isAvaliableSource.OWD[1])%> ]
+        }, {
+            name: 'Jitter',
+            data: [<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>]
+        }]
+    });
+});
+
+
+	</script>
+	
+<a href="/bdw">	
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="regionsNum"></span>  <a href="/bdw">Bandwidth Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+  </div>
+</div>
+</a> 
+
+<a href="/owd">
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="coresNum"></span> <a href="/owd">Latency Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+    
+      </div>
+</div>
+</a> 
+
+<div class="conta" id="hig" style="margin-left: 1em">
+
+
+<br>
+
+<%var info = (isAvaliableSource.info).split(';')%>
+<div class="title">
+  <label class="title" for="source"> Host source:  <%=(info[0])%></label> 
+<label class="title" for="destination">Host destination:  <%=(info[1])%></label> 
+</div>
+</br>
+
+
+<div class="clear"></div>
+
+<form method='POST' action='/owamp/'>
+
+    <input type='hidden' name='redir' value=''>
+
+    <div class="left_box" id="all_form">
+
+	
+
+	
+	
+<table class="table">  
+
+    <thead>  
+      <tr>  
+        <th>ID</th>
+        <th>Min</th>  
+        <th>Average</th>  
+        <th>Max</th>  
+          
+      </tr>  
+    </thead>  
+    <tbody>  
+      <tr>  
+        <th>One-Way Delay</th>  
+        <td><%=(isAvaliableSource.OWD[0] || '')%> ms</td>  
+        <td><%=(isAvaliableSource.OWD[3]||'')%>  ms</td>  
+        <td><%=(isAvaliableSource.OWD[1]|| '')%> ms</td>  
+      </tr>  
+      <tr>  
+        <th>Jitter</th>  
+        <td> </td>  
+        <td><%=(isAvaliableSource.OWD[4] || '')%> ms</td>
+        <td> </td>
+
+      </tr>  
+  
+    </tbody>  
+  </table>  
+	
+  
+  <br>
+	<script src="/js/highcharts.js"></script>
+	<script src="/js/exporting.js"></script>
+
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</br>
+	
+	  <br>
+	
+	            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="source">GET:  </label>
+
+                </div>
+            </div>
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <%=(isAvaliableSource.path)%>
+		    	</div>
+            </div>
+            
+              
+  <br>
+  Test Result: 
+		<pre id="code" class="prettyprint linenums">
+		<%=r1%>
+		</pre>
+		</br>	
+		
+    </div>
+
+</form>
+
+</div>

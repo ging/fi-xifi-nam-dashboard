@@ -1,0 +1,5 @@
+.idea/
+node_modules/
+blog.sqlite
+.env
+config.js

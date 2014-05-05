@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+<% var interval = isAvaliableSource.interval %>
+<%var transfer = isAvaliableSource.transfer %>
+<%var banwidth = isAvaliableSource.banwidth %>
+<%var band = isAvaliableSource.band %>
+<%var date = isAvaliableSource.date %>
+<%var average=((band[5]+band[11]+band[18]+band[20]+band[22])/5).toPrecision(3)%>
+
+$(function () {
+	
+	
+        $('#container').highcharts({
+            chart: {
+                type: 'areaspline'
+            },
+            title: {
+                text: 'Bandwidth'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 150,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF'
+            },
+            xAxis: {
+                categories: [
+                   1,2, 3, 4, 5
+                   
+                ],
+                plotBands: [{ // visualize the weekend
+                    from: -0.4,
+                    to: 6.4,
+                    color: 'rgba(68, 170, 213, .2)'
+                }]
+            },
+            yAxis: {
+                title: {
+                    text: 'Bandwidth (Mbps)'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' Mbps'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.5
+                }
+            },
+            series: [{
+                name: 'Interval measurements',
+                data: [<%=band[5]%>,<%=band[11]%>, <%=band[17]%>, <%=band[18]%>, <%=band[22]%> ]
+            }, {
+                name: 'Average measurement',
+                data: [<%=average%>, <%=average%>, <%=average%>, <%=average%>, <%=average%>]
+            }]
+        });
+    });
+    
+
+		</script>
+		
+<a href="/bdw">
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="regionsNum"></span>  <a href="/bdw">Bandwidth Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+  </div>
+</div>
+</a>
+
+<div class="conta" id="hig" style="margin-left: 1em">
+
+
+
+<br>
+
+<%var info = (isAvaliableSource.info).split(';')%>
+<div class="title">
+  <label class="title" for="source"> Host source:  <%=(info[0])%></label> 
+<label class="title" for="destination">Host destination:  <%=(info[1])%></label> 
+</div>
+</br>
+
+
+<div class="clear"></div>
+
+<form method='POST' action='/bwctl/'>
+
+    <input type='hidden' name='redir' value=''>
+
+    <div class="left_box" id="all_form">
+
+	
+	
+
+	
+	
+<table class="table">  
+
+    <thead>  
+      <tr>  
+        <th>Id</th>
+        <th>Date</th>    
+        <th>Bandwidth</th>  
+          
+      </tr>  
+    </thead>  
+    <tbody>  
+      <tr>  
+        <td>1</td>  
+        <td><%=(date[0] || '') %></td>  
+          
+        <td><%=(band[5] ) %> Mbps</td>  
+      </tr>  
+      <tr>  
+        <td>2</td>  
+        <td><%=(date[1] || '') %></td>  
+          
+        <td><%=(band[11] ) %> Mbps</td> 
+      </tr>  
+      <tr>  
+        <td>3</td>  
+        <td><%=(date[2] || '') %></td>  
+          
+        <td><%=(band[17] ) %> Mbps</td> 
+      </tr>  
+      <tr>  
+      <td>4</td>  
+      <td><%=(date[3] || '') %></td>  
+        
+      <td><%=(band[18] ) %> Mbps</td> 
+    </tr> 
+     <tr>  
+      <td>5</td>  
+      <td><%=(date[4] || '') %></td>  
+        
+      <td><%=(band[22] ) %> Mbps</td> 
+  </tr>
+  <tr>  
+  <td></td>  
+  <td></td>  
+  <td><h4>Average</h4></td>  
+  <td><h4><%=(average || '') %> Mbps </h4></td> 
+</tr>
+    </tbody>  
+  </table>  
+
+  <br>
+	<script src="/js/highcharts.js"></script>
+	<script src="/js/exporting.js"></script>
+
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</br>
+	
+	            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="source">GET:</label>
+
+                </div>
+            </div>
+
+            
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <%=(isAvaliableSource.path)%>
+		    	</div>
+            </div>
+            
+            
+	
+
+	
+	
+</div>
+</form>
+</div>
+
+<a href="/owd">
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="coresNum"></span> <a href="/owd">Latency Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+    
+      </div>
+</div>
+</a>
+<br>
+</br>

@@ -1,0 +1,26 @@
+{
+  "name": "xifi_Dashboard",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+  "start": "nodejs app"
+  },
+  "dependencies": {
+    "express": "3.2.4",
+    "mongoose": "*",
+    "mongodb":"*",
+    "ejs": "0.8.2",
+    "pg": "0.6.x",
+    "superagent":"*",
+    "connect-flash": "*",
+    "xmlbuilder": "0.4.2",
+    "express-partials":"*"
+  },
+  "devDependencies":{
+    "coffee-script": ">=1.1.0"
+  },
+  "engines": {
+    "node": "*",
+    "npm": "1.1.x"
+  }
+}

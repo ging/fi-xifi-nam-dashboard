@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<script type="text/javascript">
+$("#myTab .dropdown-menu a").click( function(e){
+    
+    var source = $(this).data("source");
+    
+    if( source )
+    {
+        $('#myTab a[href="#' + source + '"]').tab('show');
+    }
+    
+    return false;
+});
+
+</script>
+
+<a href="/bdw">
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="regionsNum"></span>  <a href="/bdw">Bandwidth Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+  </div> 
+</div>
+</a>
+
+
+<a href="/owd">
+<div class="section">
+  <div class="headerSection accordionTitle">
+    <div class="leftIcon">
+      <img src="/images/infographic/iconMondo.png" height="55">
+    </div>
+    <div class="rightDetail">
+      <span id="coresNum"></span> <a href="/owd">Latency Service</a> 
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="bodySection accordionPanel bigPanel" style="display: none;">
+    
+      </div>
+</div>
+
+</a>
+
+<div class="conta" id="hig" style="margin-left: 1em">
+<p></p>
+<!-- <div class="title">Latency Service</div> -->
+<p></p>
+
+<div class="clear"></div>
+
+<!-- 6 -->
+<!-- <h3>Latency Service</h3>-->
+<div class="tabbable">
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a  href="#On-Demand" data-toggle="tab">Live Request</a></li>
+        <li><a  href="#history" data-toggle="tab">History</a></li>
+
+        <!--dropdown has same tab selection above, showing with js how to select a tab dynamically
+        <li id="dynamic_tabbable" class="dropdown">
+            <a data-toggle="dropdown" href="#">dynamic tabbable <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><a tabindex="-1" data-source="On-Demand" href="#">On-Demand</a></li>
+                <li><a tabindex="-1" data-source="History" href="#">history</a></li>
+            </ul>
+        </li> -->
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="On-Demand">
+            <p>
+
+
+
+<form method='POST' action='/owd/'>
+
+    <input type='hidden' name='redir' value=''>
+
+    <div class="left_box" id="all_form">
+        <div class="all_form">
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="source">Host source:</label>
+                    <select name="source" >
+			    <option> </option>
+		            <option>Berlin</option>
+			    <option>Lannion</option>
+		            <option>Madrid_UPM</option>
+			    <option>Trento</option>    
+			    <option>Waterford</option>     
+                    </select>
+                    <select name="source1" >
+                    	<option>0001</option>                
+                    </select>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="all_form_row">
+                <div class="all_field">
+                   <label for="destination">Host destination:</label> 
+                     <select name="destination" >
+                    <option> </option>
+                    <option>Berlin</option>
+		    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+		    <option>Trento</option>    
+		    <option>Waterford</option>     
+                	</select>
+                    <select name="destination1" >
+                    <option>0001</option>                
+                	</select>
+		    	
+		    	</div>
+            </div>
+            <div class="all_form_row">
+                <div class="actions contact">
+                    <input class="submit_button" name="commit" type="submit" value="   Test   "/>
+                </div>
+            </div>
+
+        </div>
+	<br>
+	</br>
+
+    </div>
+
+</form>
+
+</p>
+        </div>
+
+        <div class="tab-pane" id="history">
+            <p>
+            
+     <form method='POST' action='/owdhistory/'>
+
+    <input type='hidden' name='redir' value=''>
+
+    <div class="left_box" id="all_form">
+        <div class="all_form">
+
+            <div class="all_form_row">
+                <div class="all_field">
+                    <label for="source">Host source:</label>
+                    <select name="source" >
+			    <option> </option>
+		            <option>Berlin</option>
+			    <option>Lannion</option>
+		            <option>Madrid_UPM</option>
+			    <option>Trento</option>    
+			    <option>Waterford</option>     
+                    </select>
+                    <select name="source1" >
+                    	<option>0001</option>                
+                    </select>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="all_form_row">
+                <div class="all_field">
+                   <label for="destination">Host destination:</label> 
+                     <select name="destination" >
+                    <option> </option>
+                    <option>Berlin</option>
+		    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+		    <option>Trento</option>    
+		    <option>Waterford</option>     
+                	</select>
+                    <select name="destination1" >
+                    <option>0001</option>                
+                	</select>
+		    	
+		    	</div>
+            </div>
+            <div class="all_form_row">
+                <div class="actions contact">
+                    <input class="submit_button" name="commit" type="submit" value="   Display   "/>
+                </div>
+            </div>
+
+        </div>
+	<br>
+	</br>
+
+    </div>
+
+</form>       
+
+
+</p>
+
+</div>

@@ -1,0 +1,10 @@
+var config = {};
+
+config.oauth = {
+	account_server: '',
+    client_id: '',
+    client_secret: '',
+    callbackURL: ''
+};
+
+module.exports = config;
