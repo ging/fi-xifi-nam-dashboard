@@ -7,4 +7,6 @@ config.oauth = {
     callbackURL: ''
 };
 
+config.nam_server = '';
+
 module.exports = config;

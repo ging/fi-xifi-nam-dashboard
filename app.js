@@ -88,9 +88,6 @@ app.get('/owamp', host.indexow);
 app.post('/owamp', host.testow);
 */
 
-app.get('/bdw', 
-		sessionController.requiresLogin,
-		test.indexbw);
 app.post('/bdw', 
 		sessionController.requiresLogin,
 		test.testbdw);
@@ -98,9 +95,6 @@ app.post('/bdwhistory',
 		sessionController.requiresLogin,
 		test.testbdwhist);
 
-app.get('/owd', 
-		sessionController.requiresLogin,
-		test.indexow);
 app.post('/owd', 
 		sessionController.requiresLogin,
 		test.testow);

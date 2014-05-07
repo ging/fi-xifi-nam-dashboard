@@ -8,7 +8,7 @@ var FS   = require('fs');
 var http = require('http');
 var superagent = require('superagent');
 var datareq = '';
-var server = '138.4.47.33:3000';
+var server = require('./../config').nam_server;
 
 var optionsget = {
 	    host : '', // here only the domain name
@@ -16,19 +16,6 @@ var optionsget = {
 	    path : '', // the rest of the url with parameters if needed
 	    method : 'GET' // do GET
 	};
-
-exports.indexbw = function(req, res, next) {
-	
-    res.render('bwctl', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
-
-};
-
-exports.indexow = function(req, res, next) {
-
-     res.render('owamp', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
-    
-};
-
 
 //Test Bwctl
 
@@ -246,7 +233,7 @@ exports.testbdwhist = function(req, res) {
         
     	
     
-    	 superagent.get('http://138.4.47.33:3000/monitoring/regions/'+source+'/hosts/'+source1)
+    	 superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1)
          .end(function(error, resp){
        	          
         	if(error){
@@ -362,7 +349,7 @@ exports.testowdhist = function(req, res) {
 
     }else{
 
-      superagent.get('http://138.4.47.33:3000/monitoring/regions/'+source+'/hosts/'+source1)
+      superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1)
          .end(function(error, resp){
                   
           if(error){

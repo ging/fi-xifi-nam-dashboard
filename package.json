@@ -7,8 +7,6 @@
   },
   "dependencies": {
     "express": "3.2.4",
-    "mongoose": "*",
-    "mongodb":"*",
     "ejs": "0.8.2",
     "pg": "0.6.x",
     "superagent":"*",

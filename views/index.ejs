@@ -1,38 +1,200 @@
-  
-<div class="left_box" id="welcome_box">
+<script type="text/javascript">
 
-<a href="/bdw"> <div class="section">
-  <div class="headerSection accordionTitle">
-    <div class="leftIcon">
-      <img src="/images/infographic/iconMondo.png" height="55">
-    </div>
-    <div class="rightDetail">
-      <span id="regionsNum"></span>  <a href="/bdw">Bandwidth Service</a> 
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="bodySection accordionPanel bigPanel" style="display: none;">
-  </div>
-    
+  window.onload = function () {
+    $("select").selectbox({
+      onChange: function (val, inst) {
+          window.location = val;
+      }
+    });
+  }
   
-</div> </a>
 
-<a href="/owd"> <div class="section">
-  <div class="headerSection accordionTitle">
-    <div class="leftIcon">
-      <img src="/images/infographic/iconMondo.png" height="55">
+</script>
+
+
+<div class="col-md-6">
+  <div>
+    <h3 class="title3">Bandwidth Service</h3>
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a class="serv_tab" href="#bw_demand" data-toggle="tab">Live Request</a></li>
+        <li><a class="serv_tab" href="#bw_history" data-toggle="tab">History</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="bw_demand">
+          <form method='POST' action='/bdw'>
+            <div>
+              <div class="all_form">
+                <div class="all_form_row">
+                  <label class="serv_label" for="source">Host source:</label> 
+                  <select name="source" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="source1" >
+                    <option>193.205.211.69</option>             
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <label class="serv_label" for="destination">Host destination:</label> 
+                  <select name="destination" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="destination1" >
+                    <option>193.1.202.133</option>                
+                  </select>
+                </div>          
+                <div class="all_form_row">
+                  <div class="test_button">
+                      <input class="submit_button" name="commit" type="submit" value="   Test    "/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <div class="tab-pane" id="bw_history">
+          <form method='POST' action='/bdwhistory'>
+            <div>
+              <div class="all_form">
+                <div class="all_form_row">
+                  <label class="serv_label" for="source">Host source:</label> 
+                  <select name="source" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="source1" >
+                    <option>0001</option>             
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <label class="serv_label" for="destination">Host destination:</label> 
+                  <select name="destination" >
+                    <option> </option>
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="destination1" >
+                    <option>0001</option>                
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <div class="test_button">          
+                    <input class="submit_button" name="commit" type="submit" value="   Display    "/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="rightDetail">
-      <span id="coresNum"></span> <a href="/owd">Latency Service</a> 
-    </div>
-    <div class="clear"></div>
   </div>
-	<div class="bodySection accordionPanel smallPanel" style="display: none;">
-		
-	</div>
 </div>
 
-</a>
-<br>
-</br>
+<div class="col-md-6">
+  <div>
+    <h3 class="title3">Latency Service</h3>
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a class="serv_tab" href="#latency_demand" data-toggle="tab">Live Request</a></li>
+        <li><a class="serv_tab" href="#latency_history" data-toggle="tab">History</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div class="tab-pane active" id="latency_demand">
+          <form method='POST' action='/owd/'>
+            <div class="left_box" id="all_form">
+              <div class="all_form">
+                <div class="all_form_row">
+                  <label class="serv_label" for="source">Host source:</label>
+                  <select name="source" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="source1" >
+                    <option>0001</option>                
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <label class="serv_label" for="destination">Host destination:</label> 
+                  <select name="destination" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="destination1" >
+                    <option>0001</option>                
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <div class="test_button">
+                    <input class="submit_button" name="commit" type="submit" value="   Test   "/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane" id="latency_history">
+          <form method='POST' action='/owdhistory/'>
+            <div>
+              <div class="all_form">
+                <div class="all_form_row">
+                  <label class="serv_label" for="source">Host source:</label>
+                  <select name="source" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="source1" >
+                    <option>0001</option>                
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <label class="serv_label" for="destination">Host destination:</label> 
+                  <select name="destination" >
+                    <option>Berlin</option>
+                    <option>Lannion</option>
+                    <option>Madrid_UPM</option>
+                    <option>Trento</option>    
+                    <option>Waterford</option>     
+                  </select>
+                  <select name="destination1" >
+                    <option>0001</option>                
+                  </select>
+                </div>
+                <div class="all_form_row">
+                  <div class="test_button">
+                    <input class="submit_button" name="commit" type="submit" value="   Display   "/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>       
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
