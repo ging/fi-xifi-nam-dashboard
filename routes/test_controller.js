@@ -21,7 +21,7 @@ var optionsget = {
 
 
 exports.testbdw = function(req, res) {
-	
+
 	console.log('Params en este caso');
 	console.log(req.body);
 
@@ -32,12 +32,12 @@ exports.testbdw = function(req, res) {
     var windows = req.body.windows;
     var interval = req.body.interval;
     var durarion = req.body.durarion;
-
+    var token = req.cookies.dec_token;
 
     console.log ('compobación parametros')
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
-    	res.render('bwctl', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+    	res.render('index', {type: "error",  r1:"", isAvaliableSource :"", isAvaliableDestination:""});
     	
     }else{
         
@@ -47,9 +47,7 @@ exports.testbdw = function(req, res) {
 	    console.info(path_call_bwctl);
 	    console.info('Do the GET call');
    
-    
-	    console.info('REQ', path_call_bwctl);
-	    superagent.get(path_call_bwctl).end(function(error, resp) {
+	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
 	    	if(error) {
 	      		res.send("error" + error);
 	      	} else {
@@ -79,19 +77,18 @@ exports.testbdw = function(req, res) {
 		     		}
 	      			if (fbResponse.error!=0 || resul.banwidth==null){
 	      				req.flash('error', fbResponse.result);
-	      				res.render('bwctl', { r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
-	      			}else {
-	      			
-	      				res.render('bwctl_result', { r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
-	      				
+	      				res.render('index', {type: "error"});//, r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
+	      			} else {
+	      				res.render('index', {title: "Bandwidth service results", type: "bwctl_result", r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
 	      			}
       			
-	      	}else{
-	      		req.flash('error', "You must select hosts: source and destination");
-	        	res.render('bwctl', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+	      	    }else{
+	      		    req.flash('error', "You must select hosts: source and destination");
+                    console.log('VOY');
+	        	    res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:""});
 	      		
-	      	}      		
-      	}
+	      	    }      		
+      	    }
       });
     }
 };
@@ -117,7 +114,7 @@ exports.testow = function(req, res) {
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
     
-    	res.render('owamp', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+    	res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:""});
 
     }else{
     	
@@ -130,23 +127,23 @@ exports.testow = function(req, res) {
 	    
 	    superagent.get(path_call_bwctl)
         .end(function(error, resp){
-      	if(error){
-        		res.send("error");
-        	}else{
+      	if (error) {
+            res.send("error");
+        } else {
         		
-        		fbResponse = resp.body;
+    		fbResponse = resp.body;
 
-        		if (fbResponse.error){
-          		  req.flash('error', fbResponse.result);
-          		  console.log(fbResponse)
-          		  console.log('owamp con error')
-          		  res.render('owamp', { r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
-             
-          	  } else {
+    		if (fbResponse.error || !fbResponse.result){
+          		req.flash('error', fbResponse.result);
+          		console.log(fbResponse)
+          		console.log('owamp con error')
+          		res.render('index', {type: "error", r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
+         
+      	     } else {
           		  
           		console.log(fbResponse)
-          		  var resul = {
-          				  RegionIdD : source,
+          		var resul = {
+          		    	  RegionIdD : source,
           				  hostIdS : source1,
           				  RegionIdD : destination,
           				  hostIdD : destination1,
@@ -164,7 +161,7 @@ exports.testow = function(req, res) {
           		  
           		resul.OWD[3]=(resul.OWD[0]+resul.OWD[1])/2;
           		  
-                  res.render('owamp_result', { r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
+                  res.render('index', {title: "Latency service results", type: "owamp_result",  r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
           	  
           	  }  
         	}
@@ -227,7 +224,7 @@ exports.testbdwhist = function(req, res) {
     console.log ('compobación parametros');
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
-    	res.render('bwctl', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+    	res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:""});
     	
     }else{
         
@@ -305,17 +302,17 @@ exports.testbdwhist = function(req, res) {
         	      			if (fbResponse.error!=0 || resul.banwidth==null){
         	      				
         	      				req.flash('error', fbResponse.result);
-        	      				res.render('bwctl', { r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
+        	      				res.render('index', {type: "error",  r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
         	      			}else {
         	      				console.log (resul.band);
-        	      				res.render('bwctl_result_history', { r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+        	      				res.render('index', {title: "Bandwidth history results", type: "bwctl_result_history", r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
         	      				
         	      			}
               			
         	      	}else{
         	      		req.flash('error', "Not found sufficient tests");
                     console.log('bwd error')
-        	        	res.render('bwctl', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+        	        	res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:""});
         	      		
         	      	} 					
               	}
@@ -345,7 +342,7 @@ exports.testowdhist = function(req, res) {
     if (source == '' || destination == ''){
       req.flash('error', "You must select hosts: source and destination");
     
-      res.render('owamp', { r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+      res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:""});
 
     }else{
 
@@ -434,7 +431,7 @@ exports.testowdhist = function(req, res) {
                 
                 console.log('owamp ok')
                 
-                res.render('owamp_result_history', { isAvaliableSource :resul, isAvaliableDestination:""});
+                res.render('index', {title: "Latency history results", type: "owamp_result_history", isAvaliableSource :resul, isAvaliableDestination:""});
 
 
 
@@ -444,7 +441,7 @@ exports.testowdhist = function(req, res) {
                 
                 req.flash('error', "Not found sufficient measures");
                 console.log('owamp con error')
-                res.render('owamp', { r1: "Not found sufficient tests", isAvaliableSource :resul, isAvaliableDestination:""});
+                res.render('index', {type: "error", r1: "Not found sufficient tests", isAvaliableSource :resul, isAvaliableDestination:""});
              
               
               }  

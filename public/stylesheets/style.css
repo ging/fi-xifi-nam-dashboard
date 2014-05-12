@@ -12,8 +12,16 @@ body {
 
 .title3 {
 	color: #152859;
+	padding-bottom: 15px;
 }
 
+#load_spinner {
+	width: 50px;
+}
+
+#result_modal_body {
+	text-align: center;
+}
 
 .serv_label {
 	color: #152859;
@@ -99,10 +107,17 @@ footer {
 	padding-left: 50px;
 }
 
-.all_form_row * {
+.all_form_row {
 	width: 100%;
-	margin-top: 20px;
 	position: relative;
+}
+
+.all_form_row .sbHolder {
+	margin-top: 20px;
+}
+
+.all_form_row label {
+	margin-top: 30px;
 }
 
 .tabbable {
@@ -115,16 +130,26 @@ footer {
 	padding-top: 30px;
 	padding-left: 45px;
 	padding-right: 45px;
-	padding-bottom: 80px;
+	padding-bottom: 40px;
 }
 
 .test_button {
-	width: 100px;
-	right: 15px;
-	position: absolute;
+	margin-top: 30px;
+	text-align: right;
+	
 }
 
+.btn-blue {
+	background-color: #60C0CE;
+	color: white;
+}
+
+.btn-blue:hover {
+	background-color: #60C0CE;
+	color: white;
+}
 .sbHolder {
+	position: relative;
 	font-family: 'Comfortaa';
 	font-weight: 400;
 	border: none;
@@ -161,6 +186,37 @@ footer {
 	text-overflow: ellipsis;
 	border: 0;
 	font-size: 14px;
+}
+.sbOptions {
+	list-style: none;
+	left: -1px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 30px;
+	width: 100%;
+	z-index: 1;
+	overflow-y: auto;
+	border-radius: 3px;
+	max-height: 1343% !important;
+	margin-top: 10px;
 
+	font-family: 'Comfortaa';
+	font-weight: 400;
+	border: none;
+	font-size: 14px;
+	color: #666666;
 
+	background-color: white;
+
+	box-shadow: rgb(211, 211, 211) 0px 0px 10px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.sbOptions a {
+
+	color: #666666;
 }

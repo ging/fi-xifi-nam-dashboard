@@ -6,11 +6,14 @@
     <title>FI-LAB NAM Dashboard</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.selectbox.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="/stylesheets/style.css" media="screen" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/jquery.selectbox.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/highcharts.js"></script>
+    <script src="/js/exporting.js"></script>
 	
     <link href="/images/fi_lab_app/icons/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
 
@@ -22,7 +25,7 @@
     <nav class="navbar-inner">
       <div class="logo-header">
         <a href="http://help.lab.fi-ware.org" class="logo-header">
-          <img alt="FI-WARE" id="fi-logo" src="images/header-logo.png">
+          <img alt="FI-WARE" id="fi-logo" src="/images/header-logo.png">
         </a>
         <a href="http://help.lab.fi-ware.org" class="brand hidden-tablet hidden-phone">
           <span id="logo-fi">FI-</span><span id="logo-ware">WARE</span>
@@ -42,7 +45,61 @@
       </div>
 
     </div>
-    <div class="col-md-3">NAM Services Status</div>
+    <div class="col-md-3">
+      <!--<h3 class="title3">NAM Services Status</h3>
+
+      <div class="tabbable">
+      
+      </div>-->
+    </div>
+  </div>
+
+  <div id="result_modal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Test results</h4>
+        </div>
+        <div id="result_modal_body" class="modal-body">
+
+          <% if (type) { 
+            switch (type) {
+              case 'error':
+                %>
+                <%- include error%>
+                <%
+                break;
+              case "bwctl_result":
+                %>
+                <%- include bwctl_result%>
+                <%
+                break;
+              case "owamp_result":
+                %>
+                <%- include owamp_result%>
+                <%
+                break;
+              case "bwctl_result_history":
+                %>
+                <%- include bwctl_result_history%>
+                <%
+                break;
+              case "owamp_result_history":
+                %>
+                <%- include owamp_result_history%>
+                <%
+                break;
+            }
+           } else { %>
+            <img id="load_spinner" src="images/spinner2.gif">
+          <% } %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <footer>

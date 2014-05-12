@@ -9,7 +9,7 @@
  */
 
 exports.index = function(req, res){
-    res.render('index');
+    res.render('index', {type: false});
 };
 
 // exports.bwctl = function(req, res){

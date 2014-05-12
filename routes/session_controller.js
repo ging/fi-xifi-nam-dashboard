@@ -20,11 +20,11 @@ exports.requiresLogin = function (req, res, next) {
         req.cookies.oauth_token = undefined;
     }
 
-
     if(!req.cookies.oauth_token) {
         var path = oauth_client.getAuthorizeUrl();
         res.redirect(path);
     } else {
+        req.cookies.dec_token = tok;
         next();
     }
 };
