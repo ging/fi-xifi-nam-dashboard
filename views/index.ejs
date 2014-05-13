@@ -13,28 +13,36 @@
               <div class="all_form">
                 <div class="all_form_row">
                   <label class="serv_label" for="source">Host source:</label> 
-                  <select name="source" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="bdw_demand_source" name="source" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>
                   </select>
-                  <select name="source1" >
-                    <option>193.205.211.69</option>             
+                  <select id="bdw_demand_source_ip" name="source1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%>  
                   </select>
                 </div>
                 <div class="all_form_row">
                   <label class="serv_label" for="destination">Host destination:</label> 
-                  <select name="destination" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="bdw_demand_dest" class="host" name="destination" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>     
                   </select>
-                  <select name="destination1" >
-                    <option>193.1.202.133</option>                
+                  <select id="bdw_demand_dest_ip" name="destination1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>          
                 <div class="all_form_row">
@@ -53,28 +61,36 @@
               <div class="all_form">
                 <div class="all_form_row">
                   <label class="serv_label" for="source">Host source:</label> 
-                  <select name="source" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="bdw_hist_source" class="host" name="source" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>    
                   </select>
-                  <select name="source1" >
-                    <option>0001</option>             
+                  <select id="bdw_hist_source_ip" name="source1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">
                   <label class="serv_label" for="destination">Host destination:</label> 
-                  <select name="destination" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="bdw_hist_dest" class="host" name="destination" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>     
                   </select>
-                  <select name="destination1" >
-                    <option>0001</option>                
+                  <select id="bdw_hist_dest_ip" name="destination1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">
@@ -107,28 +123,36 @@
               <div class="all_form">
                 <div class="all_form_row">
                   <label class="serv_label" for="source">Host source:</label>
-                  <select name="source" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="lat_demand_source" class="host" name="source" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>    
                   </select>
-                  <select name="source1" >
-                    <option>0001</option>                
+                  <select id="lat_demand_source_ip" name="source1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">
                   <label class="serv_label" for="destination">Host destination:</label> 
-                  <select name="destination" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="lat_demand_dest" class="host" name="destination" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>     
                   </select>
-                  <select name="destination1" >
-                    <option>0001</option>                
+                  <select id="lat_demand_dest_ip" name="destination1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">
@@ -146,28 +170,36 @@
               <div class="all_form">
                 <div class="all_form_row">
                   <label class="serv_label" for="source">Host source:</label>
-                  <select name="source" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="lat_hist_source" class="host" name="source" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%> 
                   </select>
-                  <select name="source1" >
-                    <option>0001</option>                
+                  <select id="lat_hist_source_ip" name="source1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">
                   <label class="serv_label" for="destination">Host destination:</label> 
-                  <select name="destination" >
-                    <option>Berlin</option>
-                    <option>Lannion</option>
-                    <option>Madrid_UPM</option>
-                    <option>Trento</option>    
-                    <option>Waterford</option>     
+                  <select id="lat_hist_dest" class="host" name="destination" >
+                    <%for (var n in nodes) {
+                      %>
+                        <option><%=n%></option>
+                      <%
+                    }%>   
                   </select>
-                  <select name="destination1" >
-                    <option>0001</option>                
+                  <select id="lat_hist_dest_ip" name="destination1" >
+                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                      %>
+                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <%
+                    }%> 
                   </select>
                 </div>
                 <div class="all_form_row">

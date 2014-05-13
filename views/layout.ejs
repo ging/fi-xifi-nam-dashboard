@@ -17,6 +17,10 @@
 	
     <link href="/images/fi_lab_app/icons/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
 
+    <script type="text/javascript">
+      var nam_nodes =  <%- JSON.stringify(nodes)%>;
+    </script>
+
 </head>
 
 <body>
@@ -28,7 +32,7 @@
           <img alt="FI-WARE" id="fi-logo" src="/images/header-logo.png">
         </a>
         <a href="http://help.lab.fi-ware.org" class="brand hidden-tablet hidden-phone">
-          <span id="logo-fi">FI-</span><span id="logo-ware">WARE</span>
+          <span id="logo-fi">FI-</span><span id="logo-ware">Lab</span>
         </a>
       </div>
     </nav>
@@ -38,7 +42,7 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-12"><h1 class="title1">Network Active Monitoring</h1></div>
-        <p>"NAM Monitoring Dashboard description"</p>
+        <p id="nam_description">Network Active Monitoring provides Bandwidth and Latency-based test results between hosts federated in FI-Lab. This Graphical User Interface enables to check the current status through a Live Request and assess the latests historical results.</p>
       </div>
       <div class="row">
         <%- body %>

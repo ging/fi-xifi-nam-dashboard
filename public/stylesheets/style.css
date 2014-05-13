@@ -1,5 +1,20 @@
+ @font-face {
+	font-family: "NeoTechRegular";
+	src: url('fonts/NeoTechStd-Regular.eot');
+	src: local('☺'), url('fonts/NeoTechStd-Regular.woff') format('woff'), url('fonts/NeoTechStd-Regular.ttf') format('truetype'), url('fonts/NeoTechStd-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: "neosans";
+    src: url("fonts/NeoSansPro-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
+	font-family: "neosans" !important;
 	font-size: 14px;
 	line-height: 1.42857143;
 	color: #333;
@@ -13,6 +28,10 @@ body {
 .title3 {
 	color: #152859;
 	padding-bottom: 15px;
+}
+
+#nam_description {
+	padding-left: 15px;
 }
 
 #load_spinner {
@@ -71,11 +90,16 @@ header#oil-nav nav.navbar-inner .logo-header {
 
 #logo-ware {
 	color: #5DC1D3;
+	font-family: "NeoTechRegular";
+	font-size: 23px;
 }
 
 #logo-fi {
 	color: #0b2c65;
+	font-family: "NeoTechRegular";
+	font-size: 23px;
 }
+
 a {
 	color: #0093C6;
 	
@@ -150,7 +174,6 @@ footer {
 }
 .sbHolder {
 	position: relative;
-	font-family: 'Comfortaa';
 	font-weight: 400;
 	border: none;
 	font-size: 14px;
@@ -201,7 +224,6 @@ footer {
 	max-height: 1343% !important;
 	margin-top: 10px;
 
-	font-family: 'Comfortaa';
 	font-weight: 400;
 	border: none;
 	font-size: 14px;
