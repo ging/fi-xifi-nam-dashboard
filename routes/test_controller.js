@@ -110,6 +110,7 @@ exports.testow = function(req, res) {
     var source1 = req.body.source1;
     var destination  = req.body.destination;
     var destination1  = req.body.destination1;
+    var token = req.cookies.dec_token;
    
     nam_nodes = require('./index').nam_nodes;
 
@@ -128,8 +129,7 @@ exports.testow = function(req, res) {
 	    console.info(path_call_bwctl);
 	    console.info('Do the GET call');
 	    
-	    superagent.get(path_call_bwctl)
-        .end(function(error, resp){
+	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp){
       	if (error) {
             res.send("error");
         } else {
@@ -223,6 +223,7 @@ exports.testbdwhist = function(req, res) {
     var interval = req.body.interval;
     var durarion = req.body.durarion;
     nam_nodes = require('./index').nam_nodes;
+    var token = req.cookies.dec_token;
 
     console.log ('compobación parametros');
     if (source == '' || destination == ''){
@@ -233,8 +234,7 @@ exports.testbdwhist = function(req, res) {
         
     	
     
-    	 superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1)
-         .end(function(error, resp){
+    	 superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1).set('x-auth-token', token).end(function(error, resp){
        	          
         	if(error){
          		res.send("error" + error);
@@ -329,6 +329,7 @@ exports.testowdhist = function(req, res) {
     var source1 = req.body.source1;
     var destination  = req.body.destination;
     var destination1  = req.body.destination1;
+    var token = req.cookies.dec_token;
    
     nam_nodes = require('./index').nam_nodes;
     
@@ -340,8 +341,7 @@ exports.testowdhist = function(req, res) {
 
     }else{
 
-      superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1)
-         .end(function(error, resp){
+      superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1).set('x-auth-token', token).end(function(error, resp){
                   
           if(error){
             res.send("error" + error);
