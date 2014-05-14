@@ -57,10 +57,10 @@ exports.testbdw = function(req, res) {
 	      	} else {
 	      		
       			//res.send(resp.body);  
-	      		console.log('RESP', resp.body);
-	      		if(!resp.body.error && resp.body !== {}){
+	      		fbResponse = resp.body;
+	      		if(!fbResponse.error && fbResponse.result){
 	      			console.log(resp.body);
-		      		fbResponse = resp.body;
+		      		
 		     		var resul = {
 	        				  RegionIdD : source,
 	          				  hostIdS : source1,
