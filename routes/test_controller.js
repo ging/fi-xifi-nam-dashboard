@@ -5,6 +5,7 @@
  */
 
 var FS   = require('fs');
+var ejs = require('ejs');
 var http = require('http');
 var superagent = require('superagent');
 var datareq = '';
@@ -41,7 +42,7 @@ exports.testbdw = function(req, res) {
     console.log ('compobación parametros')
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
-    	res.render('index', {type: "error",  r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+    	res.send(500);
     	
     }else{
         
@@ -81,14 +82,14 @@ exports.testbdw = function(req, res) {
 		     		}
 	      			if (fbResponse.error!=0 || resul.banwidth==null){
 	      				req.flash('error', fbResponse.result);
-	      				res.render('index', {type: "error", nodes: nam_nodes});//, r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
+	      				res.send(500);
 	      			} else {
-	      				res.render('index', {title: "Bandwidth service results", type: "bwctl_result", nodes: nam_nodes, r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+	      				res.render('bwctl_result', {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
 	      			}
       			
 	      	    }else{
 	      		    req.flash('error', "You must select hosts: source and destination");
-	        	    res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:"", nodes: nam_nodes});
+	        	   res.send(500);
 	      		
 	      	    }      		
       	    }
@@ -118,7 +119,7 @@ exports.testow = function(req, res) {
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
     
-    	res.render('index', {type: "error", r1:"", isAvaliableSource :"", isAvaliableDestination:"", nodes: nam_nodes});
+    	res.send(500);
 
     }else{
     	
@@ -140,7 +141,7 @@ exports.testow = function(req, res) {
           		req.flash('error', fbResponse.result);
           		console.log(fbResponse);
           		console.log('owamp con error', nam_nodes);
-          		res.render('index', {type: "error", r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:"", nodes: nam_nodes});
+          		res.send(500);
          
       	     } else {
           		  
@@ -162,10 +163,10 @@ exports.testow = function(req, res) {
           			resul.OWD[i]=parseFloat(resul.OWD[i].match(/[0-9.]+/)); 
           		  }
           		  
-          		resul.OWD[3]=(resul.OWD[0]+resul.OWD[1])/2;
-          		  console.log('::::::::::::::::::::::: ', nam_nodes);
-                  res.render('index', {title: "Latency service results", type: "owamp_result", nodes: nam_nodes, r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
-          	  
+          		  resul.OWD[3]=(resul.OWD[0]+resul.OWD[1])/2;
+                var str = FS.readFileSync(__dirname + '/../views/owamp_result.ejs', 'utf8');
+                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
+                res.send(html);
           	  }  
         	}
         });
@@ -228,7 +229,7 @@ exports.testbdwhist = function(req, res) {
     console.log ('compobación parametros');
     if (source == '' || destination == ''){
     	req.flash('error', "You must select hosts: source and destination");
-    	res.render('index', {type: "error", nodes: nam_nodes, r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+    	res.send(500);
     	
     }else{
         
@@ -299,18 +300,17 @@ exports.testbdwhist = function(req, res) {
         	      			if (fbResponse.error!=0 || resul.banwidth==null){
         	      				
         	      				req.flash('error', fbResponse.result);
-        	      				res.render('index', {type: "error", nodes: nam_nodes,  r1: fbResponse.result, isAvaliableSource : '', isAvaliableDestination:""});
+        	      				res.send(500);
         	      			}else {
-        	      				console.log (resul.band);
-        	      				res.render('index', {title: "Bandwidth history results", type: "bwctl_result_history", nodes: nam_nodes, r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
-        	      				
+        	      				var str = FS.readFileSync(__dirname + '/../views/bwctl_result_history.ejs', 'utf8');
+                        var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                        res.send(html);
         	      			}
               			
         	      	}else{
         	      		req.flash('error', "Not found sufficient tests");
                     console.log('bwd error')
-        	        	res.render('index', {type: "error", nodes: nam_nodes, r1:"", isAvaliableSource :"", isAvaliableDestination:""});
-        	      		
+        	        	res.send(500);
         	      	} 					
               	}
               });
@@ -337,7 +337,7 @@ exports.testowdhist = function(req, res) {
     if (source == '' || destination == ''){
       req.flash('error', "You must select hosts: source and destination");
     
-      res.render('index', {type: "error", nodes: nam_nodes, r1:"", isAvaliableSource :"", isAvaliableDestination:""});
+      res.send(500);
 
     }else{
 
@@ -410,15 +410,16 @@ exports.testowdhist = function(req, res) {
 
                 }
 
-
-                res.render('index', {title: "Latency history results", type: "owamp_result_history", nodes: nam_nodes, isAvaliableSource :resul, isAvaliableDestination:""});
+                var str = FS.readFileSync(__dirname + '/../views/owamp_result_history.ejs', 'utf8');
+                var html = ejs.render(str, {isAvaliableSource :resul, isAvaliableDestination:""});
+                res.send(html);
 
 
               } else {
                 
                 req.flash('error', "Not found sufficient measures");
                 console.log('owamp con error')
-                res.render('index', {type: "error", r1: "Not found sufficient tests", nodes: nam_nodes, isAvaliableSource :resul, isAvaliableDestination:""});
+                res.send(500);
              
               
               }  

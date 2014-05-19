@@ -26,7 +26,7 @@ exports.index = function(req, res){
       			}
       		}
       		exports.nam_nodes = nam_nodes;
-    		res.render('index', {type: false, nodes: nam_nodes});
+    		res.render('index', {nodes: nam_nodes});
     	}
     });
 };

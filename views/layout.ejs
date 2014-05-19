@@ -66,41 +66,23 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Test results</h4>
+          <h4 class="modal-title" id="resutls_title">Test results</h4>
         </div>
         <div id="result_modal_body" class="modal-body">
-
-          <% if (type) { 
-            switch (type) {
-              case 'error':
-                %>
-                <%- include error%>
-                <%
-                break;
-              case "bwctl_result":
-                %>
-                <%- include bwctl_result%>
-                <%
-                break;
-              case "owamp_result":
-                %>
-                <%- include owamp_result%>
-                <%
-                break;
-              case "bwctl_result_history":
-                %>
-                <%- include bwctl_result_history%>
-                <%
-                break;
-              case "owamp_result_history":
-                %>
-                <%- include owamp_result_history%>
-                <%
-                break;
-            }
-           } else { %>
-            <img id="load_spinner" src="images/spinner2.gif">
-          <% } %>
+          <div class="row">
+            <ul id="connection" class="nav">
+              <li id="connection_source" class=""><p>Host source</p><p class="host_info" id="host_source"></p></li>
+              <li class="connection_point"></li>
+              <li id="connection_progress"></li>
+              <li id="connection_line"></li>
+              <li class="connection_point"></li>
+              <li id="connection_dest" class=""><p>Host destination</p><p class="host_info" id="host_dest"></p></li>
+            </ul>
+          </div>
+          <div id="results_table" class="row">
+          </div>
+          <div id="results_graph" class="row">
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

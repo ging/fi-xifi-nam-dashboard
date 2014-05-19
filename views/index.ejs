@@ -8,99 +8,95 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="bw_demand">
-          <form method='POST' action='/bdw'>
-            <div>
-              <div class="all_form">
-                <div class="all_form_row">
-                  <label class="serv_label" for="source">Host source:</label> 
-                  <select id="bdw_demand_source" name="source" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>
-                  </select>
-                  <select id="bdw_demand_source_ip" name="source1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%>  
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <label class="serv_label" for="destination">Host destination:</label> 
-                  <select id="bdw_demand_dest" class="host" name="destination" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>     
-                  </select>
-                  <select id="bdw_demand_dest_ip" name="destination1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>          
-                <div class="all_form_row">
-                  <div class="test_button">
-                      <input class="submit_button btn btn-blue" name="commit" type="submit" value="Test"/>
-                  </div>
+          <div>
+            <div class="all_form">
+              <div class="all_form_row">
+                <label class="serv_label" for="source">Host source:</label> 
+                <select id="bdw_demand_source" >
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>
+                </select>
+                <select id="bdw_demand_source_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%>  
+                </select>
+              </div>
+              <div class="all_form_row">
+                <label class="serv_label" for="destination">Host destination:</label> 
+                <select id="bdw_demand_dest" class="host">
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>     
+                </select>
+                <select id="bdw_demand_dest_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>          
+              <div class="all_form_row">
+                <div class="test_button">
+                    <button id="bdw_demand_button" class="btn btn-blue">Test</button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
         
         <div class="tab-pane" id="bw_history">
-          <form method='POST' action='/bdwhistory'>
-            <div>
-              <div class="all_form">
-                <div class="all_form_row">
-                  <label class="serv_label" for="source">Host source:</label> 
-                  <select id="bdw_hist_source" class="host" name="source" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>    
-                  </select>
-                  <select id="bdw_hist_source_ip" name="source1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <label class="serv_label" for="destination">Host destination:</label> 
-                  <select id="bdw_hist_dest" class="host" name="destination" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>     
-                  </select>
-                  <select id="bdw_hist_dest_ip" name="destination1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <div class="test_button">          
-                    <input class="submit_button btn btn-blue" name="commit" type="submit" value="   Display    "/>
-                  </div>
+          <div>
+            <div class="all_form">
+              <div class="all_form_row">
+                <label class="serv_label" for="source">Host source:</label> 
+                <select id="bdw_hist_source" class="host" >
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>    
+                </select>
+                <select id="bdw_hist_source_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <label class="serv_label" for="destination">Host destination:</label> 
+                <select id="bdw_hist_dest" class="host">
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>     
+                </select>
+                <select id="bdw_hist_dest_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <div class="test_button">          
+                  <button id="bdw_hist_button" class="btn btn-blue">Test</button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -118,98 +114,94 @@
       
       <div class="tab-content">
         <div class="tab-pane active" id="latency_demand">
-          <form method='POST' action='/owd/'>
-            <div class="left_box" id="all_form">
-              <div class="all_form">
-                <div class="all_form_row">
-                  <label class="serv_label" for="source">Host source:</label>
-                  <select id="lat_demand_source" class="host" name="source" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>    
-                  </select>
-                  <select id="lat_demand_source_ip" name="source1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <label class="serv_label" for="destination">Host destination:</label> 
-                  <select id="lat_demand_dest" class="host" name="destination" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>     
-                  </select>
-                  <select id="lat_demand_dest_ip" name="destination1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <div class="test_button">
-                    <input class="submit_button btn btn-blue" name="commit" type="submit" value="   Test   "/>
-                  </div>
+          <div class="left_box" id="all_form">
+            <div class="all_form">
+              <div class="all_form_row">
+                <label class="serv_label" for="source">Host source:</label>
+                <select id="lat_demand_source" class="host" >
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>    
+                </select>
+                <select id="lat_demand_source_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <label class="serv_label" for="destination">Host destination:</label> 
+                <select id="lat_demand_dest" class="host">
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>     
+                </select>
+                <select id="lat_demand_dest_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <div class="test_button">
+                  <button id="lat_demand_button" class="btn btn-blue">Test</button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
         <div class="tab-pane" id="latency_history">
-          <form method='POST' action='/owdhistory/'>
-            <div>
-              <div class="all_form">
-                <div class="all_form_row">
-                  <label class="serv_label" for="source">Host source:</label>
-                  <select id="lat_hist_source" class="host" name="source" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%> 
-                  </select>
-                  <select id="lat_hist_source_ip" name="source1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <label class="serv_label" for="destination">Host destination:</label> 
-                  <select id="lat_hist_dest" class="host" name="destination" >
-                    <%for (var n in nodes) {
-                      %>
-                        <option><%=n%></option>
-                      <%
-                    }%>   
-                  </select>
-                  <select id="lat_hist_dest_ip" name="destination1" >
-                    <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                      %>
-                        <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
-                      <%
-                    }%> 
-                  </select>
-                </div>
-                <div class="all_form_row">
-                  <div class="test_button">
-                    <input class="submit_button btn btn-blue" name="commit" type="submit" value="   Display   "/>
-                  </div>
+          <div>
+            <div class="all_form">
+              <div class="all_form_row">
+                <label class="serv_label" for="source">Host source:</label>
+                <select id="lat_hist_source" class="host" >
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%> 
+                </select>
+                <select id="lat_hist_source_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <label class="serv_label" for="destination">Host destination:</label> 
+                <select id="lat_hist_dest" class="host">
+                  <%for (var n in nodes) {
+                    %>
+                      <option><%=n%></option>
+                    <%
+                  }%>   
+                </select>
+                <select id="lat_hist_dest_ip">
+                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                    %>
+                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                    <%
+                  }%> 
+                </select>
+              </div>
+              <div class="all_form_row">
+                <div class="test_button">
+                  <button id="lat_hist_button" class="btn btn-blue">Test</button>
                 </div>
               </div>
             </div>
-          </form>       
+          </div>    
         </div>
       </div>
     </div>

@@ -167,13 +167,14 @@ footer {
 
 .test_button {
 	margin-top: 30px;
-	text-align: right;
-	
+	text-align: right;	
 }
 
 .btn-blue {
 	background-color: #60C0CE;
 	color: white;
+	width: 80px;
+	height: 30px;
 }
 
 .btn-blue:hover {
@@ -249,4 +250,77 @@ footer {
 .sbOptions a {
 
 	color: #666666;
+}
+
+#connection {
+	margin-left: 15px;
+}
+
+#connection li {
+	float: left;
+}
+
+#connection_source {
+	margin-right: 10px;
+	text-align: right;
+	overflow: hidden;
+	width: 120px;
+}
+
+#connection_dest {
+	margin-left: 10px;
+	text-align: left;
+	overflow: hidden;
+	width: 120px;
+}
+
+#connection_line {
+	float: left;
+	width: 240px;
+	margin-top: 10px;
+	border-style: dotted;
+	border-width: 1px;
+	color: #60C0CE;
+}
+
+@-webkit-keyframes interm {
+  from { margin-left: 143px; }
+  50% {  margin-left: 372px; }
+  to {   margin-left: 143px; }
+}
+@-moz-keyframes interm {
+  from { margin-left: 143px; }
+  50% {  margin-left: 372px; }
+  to {   margin-left: 143px; }
+}
+
+#connection_progress {
+	float: left;
+	width: 5px;
+	margin-top: 10px;
+	border-style: solid;
+	border-width: 1px;
+	color: #152859;
+	position: absolute;
+	margin-left: 100px;
+
+	animation: interm 6s infinite;
+    -moz-animation: interm 6s infinite;
+    -webkit-animation: interm 6s infinite;
+    -o-animation: interm 6s infinite;
+    -ms-animation: interm 6s infinite;
+}
+
+.connection_point {
+    background: #152859;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+.host_info {
+	font-size: 10px;
+	color: #666666;
+	margin-top: -10px;
 }
