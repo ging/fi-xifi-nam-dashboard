@@ -21,6 +21,14 @@ body {
 	background-color: #fff;
 }
 
+#logout {
+	padding-top: 10px;
+}
+
+#logout a {
+	color: #666666;
+}
+
 .title1 {
 	color: #60C0CE;
 }
