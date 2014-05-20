@@ -30,16 +30,18 @@
               <div class="all_form_row">
                 <label class="serv_label" for="destination">Host destination:</label> 
                 <select id="bdw_demand_dest" class="host">
-                  <%for (var n in nodes) {
+                  <%var count = 0; 
+                    for (var n in nodes) {
                     %>
-                      <option><%=n%></option>
+                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
                     <%
+                  count ++;
                   }%>     
                 </select>
                 <select id="bdw_demand_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
                     <%
                   }%> 
                 </select>
@@ -76,16 +78,18 @@
               <div class="all_form_row">
                 <label class="serv_label" for="destination">Host destination:</label> 
                 <select id="bdw_hist_dest" class="host">
-                  <%for (var n in nodes) {
+                  <%var count = 0; 
+                    for (var n in nodes) {
                     %>
-                      <option><%=n%></option>
+                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
                     <%
+                  count ++;
                   }%>     
                 </select>
                 <select id="bdw_hist_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
                     <%
                   }%> 
                 </select>
@@ -136,16 +140,18 @@
               <div class="all_form_row">
                 <label class="serv_label" for="destination">Host destination:</label> 
                 <select id="lat_demand_dest" class="host">
-                  <%for (var n in nodes) {
+                  <%var count = 0; 
+                    for (var n in nodes) {
                     %>
-                      <option><%=n%></option>
+                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
                     <%
-                  }%>     
+                  count ++;
+                  }%>      
                 </select>
                 <select id="lat_demand_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
                     <%
                   }%> 
                 </select>
@@ -181,16 +187,18 @@
               <div class="all_form_row">
                 <label class="serv_label" for="destination">Host destination:</label> 
                 <select id="lat_hist_dest" class="host">
-                  <%for (var n in nodes) {
+                  <%var count = 0; 
+                    for (var n in nodes) {
                     %>
-                      <option><%=n%></option>
+                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
                     <%
-                  }%>   
+                  count ++;
+                  }%>    
                 </select>
                 <select id="lat_hist_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
                     <%
                   }%> 
                 </select>

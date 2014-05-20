@@ -35,7 +35,7 @@ window.onload = function () {
 				dest_ip = $('#bdw_hist_dest_ip').val();
 				title = 'Bandwidth history test results';
 				break;
-			case 'latency_demand_button':
+			case 'lat_demand_button':
 				url = '/owd';
 				source = $('#lat_demand_source').val();
 				source_ip = $('#lat_demand_source_ip').val();
@@ -43,7 +43,7 @@ window.onload = function () {
 				dest_ip = $('#lat_demand_dest_ip').val();
 				title = 'Latency test results';
 				break;
-			case 'latency_hist_button':
+			case 'lat_hist_button':
 				url = '/owdhistory';
 				source = $('#lat_hist_source').val();
 				source_ip = $('#lat_hist_source_ip').val();
@@ -82,6 +82,7 @@ window.onload = function () {
 
 	$('#result_modal').on('hidden.bs.modal', function () {
 	    $('#connection_progress').show();
-	    $( "#results_table" ).html('');
+	    $('#results_table').html('');
+	    $('#results_graph').html('');
 	});
 };

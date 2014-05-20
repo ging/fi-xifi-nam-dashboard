@@ -11,20 +11,19 @@
 $(function () {
         $('#results_graph').highcharts({
             chart: {
-                type: 'areaspline'
+              marginBottom: 60
             },
             title: {
-                text: 'Bandwidth'
+                text: 'Bandwidth (Mbps)',
+                align: 'left',
+                margin: 30,
+                style: { "color": "#152859", "fontSize": "13px" }
             },
             legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 150,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF'
+              align: 'right',
+              verticalAlign: 'bottom',
+              borderWidth: 0,
+              floating: true
             },
             xAxis: {
                 categories: [
@@ -34,13 +33,17 @@ $(function () {
                 plotBands: [{ // visualize the weekend
                     from: -0.4,
                     to: 6.4,
-                    color: 'rgba(68, 170, 213, .2)'
                 }]
             },
             yAxis: {
-                title: {
-                    text: 'Bandwidth (Mbps)'
+              title: {
+                text: null
+              },
+              labels: {
+                style: {
+                  color: '#60C0CE'
                 }
+              }
             },
             tooltip: {
                 shared: true,
@@ -67,128 +70,45 @@ $(function () {
     $('#result_modal').modal();
 </script>
 		
-
-<div class="conta" id="hig" style="margin-left: 1em">
-
-
-
-<br>
-
-<%var info = (isAvaliableSource.info).split(';')%>
-<div class="title">
-  <label class="title" for="source"> Host source:  <%=(info[0])%></label> 
-<label class="title" for="destination">Host destination:  <%=(info[1])%></label> 
-</div>
-</br>
-
-
-<div class="clear"></div>
-
-<form method='POST' action='/bwctl/'>
-
-    <input type='hidden' name='redir' value=''>
-
-    <div class="left_box" id="all_form">
-
-	
-	
-
-	
-	
 <table class="table">  
-
-    <thead>  
-      <tr>  
-        <th>Id</th>
-        <th>Date</th>    
-        <th>Bandwidth</th>  
-          
-      </tr>  
-    </thead>  
-    <tbody>  
-      <tr>  
-        <td>1</td>  
-        <td><%=(date[0] || '') %></td>  
-          
-        <td><%=(band[5] ) %> Mbps</td>  
-      </tr>  
-      <tr>  
-        <td>2</td>  
-        <td><%=(date[1] || '') %></td>  
-          
-        <td><%=(band[11] ) %> Mbps</td> 
-      </tr>  
-      <tr>  
-        <td>3</td>  
-        <td><%=(date[2] || '') %></td>  
-          
-        <td><%=(band[17] ) %> Mbps</td> 
-      </tr>  
-      <tr>  
-      <td>4</td>  
-      <td><%=(date[3] || '') %></td>  
-        
+  <thead>  
+    <tr>  
+      <th>Id</th>
+      <th>Date</th>    
+      <th>Bandwidth</th>         
+    </tr>  
+  </thead>  
+  <tbody>  
+    <tr>  
+      <td class="id_cell">1</td>  
+      <td><%=(date[0] || '') %></td>      
+      <td><%=(band[5] ) %> Mbps</td>  
+    </tr>  
+    <tr>  
+      <td class="id_cell">2</td>  
+      <td><%=(date[1] || '') %></td>        
+      <td><%=(band[11] ) %> Mbps</td> 
+    </tr>  
+    <tr>  
+      <td class="id_cell">3</td>  
+      <td><%=(date[2] || '') %></td>  
+      <td><%=(band[17] ) %> Mbps</td> 
+    </tr>  
+    <tr>  
+      <td class="id_cell">4</td>  
+      <td><%=(date[3] || '') %></td>   
       <td><%=(band[18] ) %> Mbps</td> 
     </tr> 
-     <tr>  
-      <td>5</td>  
+    <tr>  
+      <td class="id_cell">5</td>  
       <td><%=(date[4] || '') %></td>  
-        
       <td><%=(band[22] ) %> Mbps</td> 
-  </tr>
-  <tr>  
-  <td></td>  
-  <td></td>  
-  <td><h4>Average</h4></td>  
-  <td><h4><%=(average || '') %> Mbps </h4></td> 
-</tr>
-    </tbody>  
-  </table>  
-
-  <br>
-
-	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-	</br>
-	
-	            <div class="all_form_row">
-                <div class="all_field">
-                    <label for="source">GET:</label>
-
-                </div>
-            </div>
-
-            
-
-            <div class="all_form_row">
-                <div class="all_field">
-                    <%=(isAvaliableSource.path)%>
-		    	</div>
-            </div>
-            
-            
-	
-
-	
-	
-</div>
-</form>
-</div>
-
-<a href="/owd">
-<div class="section">
-  <div class="headerSection accordionTitle">
-    <div class="leftIcon">
-      <img src="/images/infographic/iconMondo.png" height="55">
-    </div>
-    <div class="rightDetail">
-      <span id="coresNum"></span> <a href="/owd">Latency Service</a> 
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="bodySection accordionPanel bigPanel" style="display: none;">
-    
-      </div>
-</div>
-</a>
-<br>
-</br>
+    </tr>
+    <tr>  
+      <td></td>  
+      <td></td>  
+      <td class="average_cell">Average</td>  
+      <td class="average_cell_result"><%=(average || '') %> Mbps</td> 
+    </tr>
+  </tbody>  
+</table>

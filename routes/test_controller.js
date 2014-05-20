@@ -84,12 +84,14 @@ exports.testbdw = function(req, res) {
 	      				req.flash('error', fbResponse.result);
 	      				res.send(500);
 	      			} else {
-	      				res.render('bwctl_result', {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                var str = FS.readFileSync(__dirname + '/../views/bwctl_result.ejs', 'utf8');
+                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                res.send(html);
 	      			}
       			
 	      	    }else{
 	      		    req.flash('error', "You must select hosts: source and destination");
-	        	   res.send(500);
+	        	    res.send(500);
 	      		
 	      	    }      		
       	    }

@@ -33,6 +33,10 @@ body {
 	color: #60C0CE;
 }
 
+.title2 {
+	color: #152859;
+}
+
 .title3 {
 	color: #152859;
 	padding-bottom: 15px;
@@ -276,7 +280,7 @@ footer {
 
 #connection_line {
 	float: left;
-	width: 240px;
+	width: 265px;
 	margin-top: 10px;
 	border-style: dotted;
 	border-width: 1px;
@@ -285,12 +289,12 @@ footer {
 
 @-webkit-keyframes interm {
   from { margin-left: 143px; }
-  50% {  margin-left: 372px; }
+  50% {  margin-left: 397px; }
   to {   margin-left: 143px; }
 }
 @-moz-keyframes interm {
   from { margin-left: 143px; }
-  50% {  margin-left: 372px; }
+  50% {  margin-left: 397px; }
   to {   margin-left: 143px; }
 }
 
@@ -323,4 +327,58 @@ footer {
 	font-size: 10px;
 	color: #666666;
 	margin-top: -10px;
+}
+
+#results_table table {
+	margin-top: 20px;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+	border-top: 1px solid #152859;
+	border-bottom: 1px solid #152859;
+}
+
+#results_table thead {
+	color: #152859;
+	font-size: 13px;
+}
+
+#results_table tbody {
+	font-size: 11px;
+}
+
+#results_table th {
+	padding-top: 25px;
+	padding-bottom: 0px;
+	border-bottom: 1px solid #ddd;
+}
+
+#results_table th, tr {
+	text-align: left;
+}
+
+#results_table td {
+	border-top: none;
+}
+
+#results_table .id_cell {
+	color: #60C0CE;
+}
+
+#results_table .average_cell {
+	color: #152859;
+	font-size: 13px;
+}
+
+#results_table .average_cell_result {
+	color: #60C0CE;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#results_graph {
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: -30px;
+	width: 90%;
 }
