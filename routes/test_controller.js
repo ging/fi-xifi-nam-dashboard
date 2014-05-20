@@ -1,9 +1,3 @@
-/**
- * test_controller.js
- * Author: Fernando Garcia
- * Date: 14/03/14
- */
-
 var FS   = require('fs');
 var ejs = require('ejs');
 var http = require('http');
@@ -14,19 +8,15 @@ var server = require('./../config').nam_server;
 var nam_nodes;
 
 var optionsget = {
-	    host : '', // here only the domain name
-	    port : 4000,
-	    path : '', // the rest of the url with parameters if needed
-	    method : 'GET' // do GET
-	};
-
-//Test Bwctl
-
+    host : '', // here only the domain name
+    port : 4000,
+    path : '', // the rest of the url with parameters if needed
+    method : 'GET' // do GET
+};
 
 exports.testbdw = function(req, res) {
 
-	console.log('Params en este caso');
-	console.log(req.body);
+    console.log('[-] Test Band ', req.body);
 
     var source = req.body.source; 
     var source1 = req.body.source1;
@@ -39,75 +29,68 @@ exports.testbdw = function(req, res) {
 
     nam_nodes = require('./index').nam_nodes;
 
-    console.log ('compobación parametros')
-    if (source == '' || destination == ''){
-    	req.flash('error', "You must select hosts: source and destination");
-    	res.send(500);
+    if (source === '' || destination === '') {
+        console.log('[-] Error: no hosts selected');
+    	res.send(500, 'No hosts selected');
     	
-    }else{
+    } else {
         
-	    console.info('Options prepared:');
 	    var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
 	    var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
-	    console.info(path_call_bwctl);
-	    console.info('Do the GET call');
+	    console.log('[-] Sending request to', path_call_bwctl);
    
 	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
-	    	if(error) {
-	      		res.send("error" + error);
+	    	if (error) {
+                console.log('[-] Error from NAM server 1 ' + error);
+	      		res.send(500, 'Error from NAM server ' + error);
 	      	} else {
 	      		
-      			//res.send(resp.body);  
-	      		fbResponse = resp.body;
-	      		if(!fbResponse.error && fbResponse.result){
-	      			console.log(resp.body);
+	      		var fbResponse = resp.body;
+
+                console.log('[-] Response from NAM ', fbResponse);
+
+	      		if(!fbResponse.error && fbResponse.result) {
 		      		
 		     		var resul = {
-	        				  RegionIdD : source,
-	          				  hostIdS : source1,
-	          				  RegionIdD : destination,
-	          				  hostIdD : destination1,
-	          				  path: path_call_bwctl,
-		     				  info: test_info,
-		      				  ipS : source,
-		      				  ipD : destination,
+                        RegionIdD : source,
+                        hostIdS : source1,
+                        RegionIdD : destination,
+                        hostIdD : destination1,
+                        path: path_call_bwctl,
+                        info: test_info,
+                        ipS : source,
+                        ipD : destination,
 		      			interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
 		      			transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
-		      			banwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm)
+		      			bandwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm)
 		     		};
-		     		for (i in resul.banwidth){
-	      			  resul.banwidth[i]=parseFloat(resul.banwidth[i].match(/[0-9.]+/)); 
-	      			  console.log (i + resul.banwidth[i])
-	      			  console.log (typeof( resul.banwidth[i]));
+
+		     		for (var i in resul.bandwidth){
+	      			  resul.bandwidth[i] = parseFloat(resul.bandwidth[i].match(/[0-9.]+/)); 
 		     		}
-	      			if (fbResponse.error!=0 || resul.banwidth==null){
-	      				req.flash('error', fbResponse.result);
-	      				res.send(500);
+
+	      			if (fbResponse.error != 0 || resul.bandwidth == null) {
+                        console.log('[-] Error from NAM server 2 ' + fbResponse.result);
+	      				res.send(500, 'Error from NAM server' + fbResponse.result);
 	      			} else {
-                var str = FS.readFileSync(__dirname + '/../views/bwctl_result.ejs', 'utf8');
-                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
-                res.send(html);
+                        console.log('[-] Success. Sending response');
+                        var str = FS.readFileSync(__dirname + '/../views/bwctl_result.ejs', 'utf8');
+                        var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                        res.send(html);
 	      			}
       			
-	      	    }else{
-	      		    req.flash('error', "You must select hosts: source and destination");
-	        	    res.send(500);
-	      		
+	      	    } else {
+                    console.log('Error from NAM server 3 ', + fbResponse);
+	        	    res.send(500, 'Error from NAM server', + fbResponse);
 	      	    }      		
       	    }
-      });
+        });
     }
 };
 
-
-
-// Test Owamp
-
-
 exports.testow = function(req, res) {
 
-	console.log('Params');
-	console.log(req.body);
+	console.log('[-] Test Latency ', req.body);
 	    
     var source = req.body.source; 
     var source1 = req.body.source1;
@@ -117,107 +100,65 @@ exports.testow = function(req, res) {
    
     nam_nodes = require('./index').nam_nodes;
 
-    console.log ('compobación parametros');
-    if (source == '' || destination == ''){
-    	req.flash('error', "You must select hosts: source and destination");
-    
-    	res.send(500);
+    if (source === '' || destination === ''){
+        console.log('[-] Error: no hosts selected');
+        res.send(500, 'No hosts selected');
 
-    }else{
+    } else {
     	
-    	console.info('Options prepared:');
     	var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
     	var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
-	    //var path_call_bwctl = "http://" + server + "/monitoring/owd/"+ source + "/" + destination;
-	    console.info(path_call_bwctl);
-	    console.info('Do the GET call');
 	    
-	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp){
-      	if (error) {
-            res.send("error");
-        } else {
+        console.info('[-] Sending request to', path_call_bwctl);
+        
+	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
+      	    if (error) {
+                console.log('[-] Error from NAM server 1 ' + error);
+                res.send(500, 'Error from NAM server ' + error);
+            } else {
         		
-    		fbResponse = resp.body;
+    		    var fbResponse = resp.body;
 
-    		if (fbResponse.error || !fbResponse.result){
-          		req.flash('error', fbResponse.result);
-          		console.log(fbResponse);
-          		console.log('owamp con error', nam_nodes);
-          		res.send(500);
+                console.log('[-] Response from NAM ', fbResponse);
+
+    		    if (fbResponse.error || !fbResponse.result){
+          		    console.log('[-] Error from NAM server 2 ' + fbResponse);
+                    res.send(500, 'Error from NAM server ' + fbResponse);
          
-      	     } else {
+      	        } else {
           		  
-          		console.log(fbResponse)
-          		var resul = {
-          		    	  RegionIdD : source,
-          				  hostIdS : source1,
-          				  RegionIdD : destination,
-          				  hostIdD : destination1,
-          				  path: path_call_bwctl,
-          				  info: test_info,
-          			      OWD : fbResponse.result.match(/([-0-9.]+)/gm),
-          			      //.match(/[0-9.]+/),
-          					//match(/(= [-0-9./]+)/gm))[0].match(/([-0-9.]+)/gm),  
-          			      jitter : fbResponse.result.jitter_sc, 
-          		  };
+          		    var resul = {
+                        RegionIdD : source,
+                        hostIdS : source1,
+                        RegionIdD : destination,
+                        hostIdD : destination1,
+                        path: path_call_bwctl,
+                        info: test_info,
+                        OWD : fbResponse.result.match(/([-0-9.]+)/gm),
+                        //.match(/[0-9.]+/),
+                        //match(/(= [-0-9./]+)/gm))[0].match(/([-0-9.]+)/gm),  
+                        jitter : fbResponse.result.jitter_sc 
+          		    };
 	
-          		  for (i in resul.OWD){
-          			resul.OWD[i]=parseFloat(resul.OWD[i].match(/[0-9.]+/)); 
-          		  }
+          		    for (i in resul.OWD){
+          			   resul.OWD[i] = parseFloat(resul.OWD[i].match(/[0-9.]+/)); 
+          		    }
           		  
-          		  resul.OWD[3]=(resul.OWD[0]+resul.OWD[1])/2;
-                var str = FS.readFileSync(__dirname + '/../views/owamp_result.ejs', 'utf8');
-                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
-                res.send(html);
-          	  }  
+          		    resul.OWD[3] = (resul.OWD[0]+resul.OWD[1])/2;
+                    console.log('[-] Success. Sending response');
+                    var str = FS.readFileSync(__dirname + '/../views/owamp_result.ejs', 'utf8');
+                    var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource :resul, isAvaliableDestination:""});
+                    res.send(html);
+          	    }  
         	}
         });
     }   
 };
 
-exports.availableBwctlSource = function(req, res) {
-
-    var source = req.body.source;
-
-    optionsget.host = source;
-    optionsget.path = "/bwctl/avaliable/";
-    console.info('Options prepared:');
-    console.info(optionsget);      
-    console.info('Do the GET call');
-    console.log('source    = ' + source);
-    console.log('destination = ' + destination);
-
-    callback = function(response) {
-  
-    	var str = '';
-
-  //another chunk of data has been recieved, so append it to `str`
-    	response.on('data', function (chunk) {
-    		str += chunk;
-    		str = str.replace(new RegExp('"', 'g'), '');
-	
-    	});
-
-  //the whole response has been recieved, so we just print it out here
-	  response.on('end', function () {
-	    console.log(str);
-	    res.render('owamp', { r1: '', nodes: nam_nodes, isAvaliableSource : str, isAvaliableDestination:""});
-	      
-	  });
-	};
-	http.request(optionsget, callback).end();
-};
-
-
-
-//Test Bwctl  history
-
-
 exports.testbdwhist = function(req, res) {
-	
-	console.log('Params bdw history');
-	console.log(req.body);
 
+    console.log('[-] Test Band Hist ', req.body);   
+	
     var source = req.body.source; 
     var source1 = req.body.source1;
     var destination  = req.body.destination;
@@ -228,104 +169,94 @@ exports.testbdwhist = function(req, res) {
     nam_nodes = require('./index').nam_nodes;
     var token = req.cookies.dec_token;
 
-    console.log ('compobación parametros');
-    if (source == '' || destination == ''){
-    	req.flash('error', "You must select hosts: source and destination");
-    	res.send(500);
-    	
-    }else{
+    if (source === '' || destination === ''){
+    	console.log('[-] Error: no hosts selected');
+        res.send(500, 'No hosts selected');
+    } else {
+
+        var path = 'http://' + server + '/monitoring/regions/' + source + '/hosts/' + source1;
+        console.log('[-] Sending request to', path);
         
-    	
-    
-    	 superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1).set('x-auth-token', token).end(function(error, resp){
+        superagent.get(path).set('x-auth-token', token).end(function(error, resp) {
        	          
-        	if(error){
-         		res.send("error" + error);
-         	}else{
+        	if (error) {
+         		console.log('[-] Error from NAM server 1 ' + error);
+                res.send(500, 'Error from NAM server ' + error);
+         	} else {
          		
         	    var path_call_bwctl = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/testshow/Bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
         	    var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 
-            superagent.get(path_call_bwctl)
-              .end(function(error, resp){
-            	if(error){
-              		res.send("error" + error);
-              	}else{
-              		
-              			//res.send(resp.body); 
-              		console.log(resp.body);
-              		console.log("resultado");
-              		
-              		if(resp.body.length>4){
-              			console.log("pass if");
-              			console.log(resp.body);
-              			
-        	      		fbResponse = resp.body[1];
-        	     		var resul = {
-                				  RegionIdD : source,
-                  				  hostIdS : source1,
-                  				  RegionIdD : destination,
-                  				  hostIdD : destination1,
-                  				  path: path_call_bwctl,
-        	     				  info: test_info,
-        	      				  ipS : source,
-        	      				  ipD : destination,
-        	      			interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
-        	      			transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
-        	      			banwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm),
-        	      			date: [],
-        	     		    band: []
-        	      		  };
-        	      		  for (i in resul.banwidth){
-        	      			  resul.banwidth[i]=parseFloat(resul.banwidth[i].match(/[0-9.]+/)); 
-        	      			  console.log (i + resul.banwidth[i])
-        	      			  console.log (typeof( resul.banwidth[i]));
-        	      		  }
-        	      		  
-        	      		  for (i in resp.body){
-        	      			  resul.date.push(resp.body[i].timestamp);
-        	      			  var bandw = resp.body[i].result.match(/([0-9.]+)( Mbits)/gm);
-        	      			  var sum = 0;
-        	      			  for (i in bandw){
-        	      				  
-        	      				  bandw[i]= parseFloat(bandw[i].match(/[0-9.]+/));
-        	      				  sum += bandw[i];
-        		      			  console.log (i + bandw[i])
-        		      			  console.log (typeof( bandw[i]));
-        		      			  resul.band.push(bandw[i]);
-        		      		  }
-        	      			  //resul.band[i]=bandw[0]; 
-        	      			 // console.log (i + bandw[0])
-        	      			  //console.log (typeof( bandw[0]));
-        	      		  }
-        	      		
-        	      			if (fbResponse.error!=0 || resul.banwidth==null){
-        	      				
-        	      				req.flash('error', fbResponse.result);
-        	      				res.send(500);
-        	      			}else {
-        	      				var str = FS.readFileSync(__dirname + '/../views/bwctl_result_history.ejs', 'utf8');
-                        var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
-                        res.send(html);
-        	      			}
-              			
-        	      	}else{
-        	      		req.flash('error', "Not found sufficient tests");
-                    console.log('bwd error')
-        	        	res.send(500);
-        	      	} 					
-              	}
-              });
-              
-         	}
-         });
-    	 
-    }
+                console.log('[-] Sending request to', path_call_bwctl);
 
-    
+                superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
+            	    
+                    if (error){
+              		    console.log('[-] Error from NAM server 2 ' + error);
+                        res.send(500, 'Error from NAM server ' + error);
+              	    } else {
+              		
+                  		if (resp.body) {
+                  			
+            	      		fbResponse = resp.body[1];
+
+                            console.log('[-] Response from NAM ', fbResponse);
+
+            	     		var resul = {
+                                RegionIdD : source,
+                                hostIdS : source1,
+                                RegionIdD : destination,
+                                hostIdD : destination1,
+                                path: path_call_bwctl,
+                                info: test_info,
+                                ipS : source,
+                                ipD : destination,
+                                interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
+                                transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
+                                bandwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm),
+                                date: [],
+                                band: []
+            	      		};
+
+            	      		for (i in resul.bandwidth){
+            	      		   resul.bandwidth[i]=parseFloat(resul.bandwidth[i].match(/[0-9.]+/)); 
+            	      		}
+            	      		  
+            	      		for (i in resp.body){
+            	      			resul.date.push(resp.body[i].timestamp);
+            	      			var bandw = resp.body[i].result.match(/([0-9.]+)( Mbits)/gm);
+            	      			var sum = 0;
+            	      			for (i in bandw){
+            	      			    bandw[i]= parseFloat(bandw[i].match(/[0-9.]+/));
+            	      			    sum += bandw[i];
+            		      		    resul.band.push(bandw[i]);
+            		      		}
+            	      		}
+            	      		
+            	      		if (fbResponse.error != 0 || resul.bandwidth == null) {
+            	      			console.log('[-] Error from NAM server ' + fbResponse);
+                                res.send(500, 'Error from NAM server ' + fbResponse);
+            	      		} else {
+                                console.log('[-] Success. Sending response');
+            	      			var str = FS.readFileSync(__dirname + '/../views/bwctl_result_history.ejs', 'utf8');
+                                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                                res.send(html);
+            	      		}
+                  			
+            	      	} else {
+            	        	console.log('[-] Error from NAM server 3 ' + resp);
+                            res.send(500, 'Error from NAM server ' + resp);
+            	      	} 					
+              	    }
+                });
+         	}
+        });
+    }
 };
 
 exports.testowdhist = function(req, res) {
+
+    console.log('[-] Test Latency Hist', req.body);
 
     var source = req.body.source; 
     var source1 = req.body.source1;
@@ -335,103 +266,70 @@ exports.testowdhist = function(req, res) {
    
     nam_nodes = require('./index').nam_nodes;
     
-    console.log ('compobación parametros');
-    if (source == '' || destination == ''){
-      req.flash('error', "You must select hosts: source and destination");
-    
-      res.send(500);
+    if (source === '' || destination === '') {
+        console.log('[-] Error: no hosts selected');
+        res.send(500, 'No hosts selected');
 
-    }else{
+    } else {
 
-      superagent.get('http://' + server + '/monitoring/regions/'+source+'/hosts/'+source1).set('x-auth-token', token).end(function(error, resp){
-                  
-          if(error){
-            res.send("error" + error);
-          }else{
-      
-      var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/testshow/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+        var path = 'http://' + server + '/monitoring/regions/' + source + '/hosts/' + source1;
+        console.info('[-] Sending request to', path);
 
-      var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
-      var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
-      //var path_call_bwctl = "http://" + server + "/monitoring/owd/"+ source + "/" + destination;
+        superagent.get(path).set('x-auth-token', token).end(function(error, resp) {
+                      
+            if (error) {
+                console.log('[-] Error from NAM server 1 ' + error);
+                res.send(500, 'Error from NAM server ' + error);
+            } else {
+          
+                var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/testshow/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+                var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+                var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 
-        superagent.get(path_call_owd)
-        .end(function(error, resp){
-        if(error){
-            res.send("error");
-          }else{
-            
-            //res.send(resp.body);            
-            
-            
+                console.info('[-] Sending request to', path_call_owd);
 
-            console.log("body")
-            console.log(resp.body.length)
-            console.log("text")
-            console.log(resp.text)
+                superagent.get(path_call_owd).set('x-auth-token', token).end(function(error, resp){
+                    if(error) {
+                        console.log('[-] Error from NAM server 2 ' + error);
+                        res.send(500, 'Error from NAM server ' + error);
+                    } else {
+                        
+                        if (resp.body) {
 
+                            console.log('[-] Response from NAM ', resp.body);
+                            var resul = {
+                                RegionIdD : source,
+                                hostIdS : source1,
+                                RegionIdD : destination,
+                                hostIdD : destination1,
+                                path: path_call_bwctl,
+                                info: test_info,
+                                data: []
+                            };
 
-            if (resp.body.length>4){
-
-              fbResponse = resp.body[1];
-              console.log(fbResponse)
-                var resul = {
-                    RegionIdD : source,
-                    hostIdS : source1,
-                    RegionIdD : destination,
-                    hostIdD : destination1,
-                    path: path_call_bwctl,
-                    info: test_info,
-                      //OWD : fbResponse.result.match(/([-0-9.]+)/gm),
-  
-                      //jitter : fbResponse.result.jitter_sc, 
-                      date: [],
-                      owd_data: [],
-                      jitter_data: []
-                };
-  
-                /*for (i in resul.OWD){
-                console.log ("i: " + i);
-                resul.OWD[i]=parseFloat(resul.OWD[i].match(/[0-9.]+/)); 
-
-                }*/
-
-                for (i in resp.body){
-                  resul.date.push(resp.body[i].timestamp);
-                  var owd = resp.body[i].result.match(/([-0-9.]+)/gm);
-                  resul.jitter_data.push(resp.body[i].result.jitter_sc);
-                  console.log (resp.body[i].result.jitter_sc);
-                  for (i in owd){
-                          
-                    owd[i]= parseFloat(owd[i].match(/[0-9.]+/)); 
-                          
-                    console.log (i + owd[i])
-                    console.log (typeof( owd[i]));
-                    resul.owd_data.push(owd[i]);
-                  }
-
-                }
-
-                var str = FS.readFileSync(__dirname + '/../views/owamp_result_history.ejs', 'utf8');
-                var html = ejs.render(str, {isAvaliableSource :resul, isAvaliableDestination:""});
-                res.send(html);
-
-
-              } else {
-                
-                req.flash('error', "Not found sufficient measures");
-                console.log('owamp con error')
-                res.send(500);
-             
-              
-              }  
-
-              }
-         });  
-              
-   
-          }
+                            for (i in resp.body) {
+                                var d = {};
+                                d.date = resp.body[i].timestamp;
+                                var owd = resp.body[i].result.match(/([-0-9.]+)/gm);
+                                
+                                for (i in owd) {
+                                    if (i == 0) d.min = parseFloat(owd[i].match(/[0-9.]+/));
+                                    if (i == 1) d.max = parseFloat(owd[i].match(/[0-9.]+/));
+                                    if (i == 4) d.jitter = parseFloat(owd[i].match(/[0-9.]+/));
+                                }
+                                resul.data.push(d);
+                            }
+                            console.log('[-] Success. Sending response');
+                            var str = FS.readFileSync(__dirname + '/../views/owamp_result_history.ejs', 'utf8');
+                            var html = ejs.render(str, {isAvaliableSource :resul, isAvaliableDestination:""});
+                            res.send(html);
+                        } else {
+                            console.log('[-] Error from NAM server 3 ', resp.body);
+                            res.send(500, 'Error from NAM server ', resp.body);
+                        }  
+                    }
+                });  
+            }
         });
-
     }   
 };

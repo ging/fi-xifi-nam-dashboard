@@ -359,6 +359,7 @@ footer {
 
 #results_table td {
 	border-top: none;
+	color: #666666;
 }
 
 #results_table .id_cell {
@@ -381,4 +382,9 @@ footer {
 	margin-right: 5%;
 	margin-bottom: -30px;
 	width: 90%;
+}
+
+.close_button {
+	color: white;
+	background-color: #152859;
 }

@@ -30,19 +30,3 @@ exports.index = function(req, res){
     	}
     });
 };
-
-// exports.bwctl = function(req, res){
-//     res.render('bwctl');
-// };
-// exports.owamp = function(req, res){
-//     res.render('owamp');
-// };
-// exports.newhost = function(req, res){
-//     res.render('new');
-// };
-// exports.edithost = function(req, res){
-//     res.render('edithost');
-// };
-// exports.delhost = function(req, res){
-//     res.render('delhost');
-// };

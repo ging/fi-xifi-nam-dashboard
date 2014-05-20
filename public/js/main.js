@@ -33,7 +33,7 @@ window.onload = function () {
 				source_ip = $('#bdw_hist_source_ip').val();
 				dest = $('#bdw_hist_dest').val();
 				dest_ip = $('#bdw_hist_dest_ip').val();
-				title = 'Bandwidth history Test Results';
+				title = 'Bandwidth History Test Results';
 				break;
 			case 'lat_demand_button':
 				url = '/owd';
@@ -49,7 +49,7 @@ window.onload = function () {
 				source_ip = $('#lat_hist_source_ip').val();
 				dest = $('#lat_hist_dest').val();
 				dest_ip = $('#lat_hist_dest_ip').val();
-				title = 'Latency history Test Results';
+				title = 'Latency History Test Results';
 				break;
 		}
 		var body = {

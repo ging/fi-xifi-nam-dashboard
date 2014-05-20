@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-
 <script type="text/javascript">
 <% var interval = isAvaliableSource.interval %>
 <%var transfer = isAvaliableSource.transfer %>
-<%var banwidth = isAvaliableSource.banwidth %>
-<%var average=((banwidth[0]+banwidth[1]+banwidth[2]+banwidth[3]+banwidth[4])/5).toPrecision(3)%>
+<%var bandwidth = isAvaliableSource.bandwidth %>
+<%var average=((bandwidth[0]+bandwidth[1]+bandwidth[2]+bandwidth[3]+bandwidth[4])/5).toPrecision(3)%>
 
 $(function () {	
       $('#results_graph').highcharts({
@@ -22,7 +20,8 @@ $(function () {
               align: 'right',
               verticalAlign: 'bottom',
               borderWidth: 0,
-              floating: true
+              floating: true,
+              itemStyle: { "color": "#666666", "cursor": "pointer", "fontSize": "10px"}
             },
             xAxis: {
                 categories: [
@@ -60,7 +59,7 @@ $(function () {
             },
             series: [{
                 name: 'Interval measurements',
-                data: [<%=banwidth[0]%>,<%=banwidth[1]%>, <%=banwidth[2]%>, <%=banwidth[3]%>, <%=banwidth[4]%> ]
+                data: [<%=bandwidth[0]%>,<%=bandwidth[1]%>, <%=bandwidth[2]%>, <%=bandwidth[3]%>, <%=bandwidth[4]%> ]
             }, {
                 name: 'Average measurement',
                 data: [<%=average%>, <%=average%>, <%=average%>, <%=average%>, <%=average%>]
@@ -84,31 +83,31 @@ $(function () {
       <td class="id_cell">1</td>  
       <td><%=(interval[0] || '') %></td>  
       <td><%=(transfer[0] ||'') %></td>  
-      <td><%=(banwidth[0] ) %> Mbps</td>  
+      <td><%=(bandwidth[0] ) %> Mbps</td>  
     </tr>  
     <tr>  
       <td class="id_cell">2</td>  
       <td><%=(interval[1] || '') %></td>  
       <td><%=(transfer[1] ||'') %></td>  
-      <td><%=(banwidth[1] ) %> Mbps</td> 
+      <td><%=(bandwidth[1] ) %> Mbps</td> 
     </tr>  
     <tr>  
       <td class="id_cell">3</td>  
       <td><%=(interval[2] || '') %></td>  
       <td><%=(transfer[2] ||'') %></td>  
-      <td><%=(banwidth[2] ) %> Mbps</td> 
+      <td><%=(bandwidth[2] ) %> Mbps</td> 
     </tr>  
     <tr>  
       <td class="id_cell">4</td>  
       <td><%=(interval[3] || '') %></td>  
       <td><%=(transfer[3] ||'') %></td>  
-      <td><%=(banwidth[3] ) %> Mbps</td> 
+      <td><%=(bandwidth[3] ) %> Mbps</td> 
     </tr> 
     <tr>  
       <td class="id_cell">5</td>  
       <td><%=(interval[4] || '') %></td>  
       <td><%=(transfer[4] ||'') %></td>  
-      <td><%=(banwidth[4] ) %> Mbps</td> 
+      <td><%=(bandwidth[4] ) %> Mbps</td> 
     </tr>
     <tr>  
       <td></td>  
