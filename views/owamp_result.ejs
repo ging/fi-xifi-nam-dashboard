@@ -8,6 +8,7 @@ $(function () {
         chart: {
           marginBottom: 60
         },
+        colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
         title: {
             text: 'One-Way Delay (ms)',
             align: 'left',
@@ -69,7 +70,7 @@ $(function () {
 <table class="table">  
   <thead>  
     <tr>  
-      <th>ID</th>
+      <th></th>
       <th>Min</th>  
       <th>Average</th>  
       <th>Max</th>  
@@ -77,13 +78,13 @@ $(function () {
   </thead>  
   <tbody>  
     <tr>  
-      <th>One-Way Delay</th>  
+      <td class="id_cell">One-Way Delay</th>  
       <td><%=(isAvaliableSource.OWD[0] || '')%> ms</td>  
       <td><%=(isAvaliableSource.OWD[3]||'')%>  ms</td>  
       <td><%=(isAvaliableSource.OWD[1]|| '')%> ms</td>  
     </tr>  
     <tr>  
-      <th>Jitter</th>  
+      <td class="id_cell">Jitter</th>  
       <td> </td>  
       <td><%=(isAvaliableSource.OWD[4] || '')%> ms</td>
       <td> </td>

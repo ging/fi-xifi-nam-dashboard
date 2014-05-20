@@ -25,7 +25,7 @@ window.onload = function () {
 				source_ip = $('#bdw_demand_source_ip').val();
 				dest = $('#bdw_demand_dest').val();
 				dest_ip = $('#bdw_demand_dest_ip').val();
-				title = 'Bandwidth test results';
+				title = 'Bandwidth Test Results';
 				break;
 			case 'bdw_hist_button':
 				url = '/bdwhistory';
@@ -33,7 +33,7 @@ window.onload = function () {
 				source_ip = $('#bdw_hist_source_ip').val();
 				dest = $('#bdw_hist_dest').val();
 				dest_ip = $('#bdw_hist_dest_ip').val();
-				title = 'Bandwidth history test results';
+				title = 'Bandwidth history Test Results';
 				break;
 			case 'lat_demand_button':
 				url = '/owd';
@@ -41,7 +41,7 @@ window.onload = function () {
 				source_ip = $('#lat_demand_source_ip').val();
 				dest = $('#lat_demand_dest').val();
 				dest_ip = $('#lat_demand_dest_ip').val();
-				title = 'Latency test results';
+				title = 'Latency Test Results';
 				break;
 			case 'lat_hist_button':
 				url = '/owdhistory';
@@ -49,7 +49,7 @@ window.onload = function () {
 				source_ip = $('#lat_hist_source_ip').val();
 				dest = $('#lat_hist_dest').val();
 				dest_ip = $('#lat_hist_dest_ip').val();
-				title = 'Latency history test results';
+				title = 'Latency history Test Results';
 				break;
 		}
 		var body = {
