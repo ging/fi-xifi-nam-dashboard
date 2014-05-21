@@ -1,10 +1,13 @@
 <script type="text/javascript">
-<% var interval = isAvaliableSource.interval %>
-<%var transfer = isAvaliableSource.transfer %>
-<%var banwidth = isAvaliableSource.banwidth %>
-<%var band = isAvaliableSource.band %>
-<%var date = isAvaliableSource.date %>
-<%var average=((band[5]+band[11]+band[18]+band[20]+band[22])/5).toPrecision(3)%>
+
+<%
+var total = 0;
+var average;
+for (var d in isAvaliableSource.data) {
+  total = total + isAvaliableSource.data[d].band;
+}
+average = (total / isAvaliableSource.data.length).toPrecision(3);
+%>
 
 $(function () {
         $('#results_graph').highcharts({
@@ -25,14 +28,7 @@ $(function () {
               floating: true
             },
             xAxis: {
-                categories: [
-                   1,2, 3, 4, 5
-                   
-                ],
-                plotBands: [{ // visualize the weekend
-                    from: -0.4,
-                    to: 6.4,
-                }]
+                categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
             },
             yAxis: {
               title: {
@@ -58,7 +54,7 @@ $(function () {
             },
             series: [{
                 name: 'Interval measurements',
-                data: [<%=band[5]%>,<%=band[11]%>, <%=band[17]%>, <%=band[18]%>, <%=band[22]%> ]
+                data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].band)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
             }, {
                 name: 'Average measurement',
                 data: [<%=average%>, <%=average%>, <%=average%>, <%=average%>, <%=average%>]
@@ -76,36 +72,18 @@ $(function () {
       <th>Bandwidth</th>         
     </tr>  
   </thead>  
-  <tbody>  
+  <tbody>
+    <%for (var d in isAvaliableSource.data) {%>
     <tr>  
-      <td class="id_cell">1</td>  
-      <td><%=(date[0] || '') %></td>      
-      <td><%=(band[5] ) %> Mbps</td>  
-    </tr>  
-    <tr>  
-      <td class="id_cell">2</td>  
-      <td><%=(date[1] || '') %></td>        
-      <td><%=(band[11] ) %> Mbps</td> 
-    </tr>  
-    <tr>  
-      <td class="id_cell">3</td>  
-      <td><%=(date[2] || '') %></td>  
-      <td><%=(band[17] ) %> Mbps</td> 
-    </tr>  
-    <tr>  
-      <td class="id_cell">4</td>  
-      <td><%=(date[3] || '') %></td>   
-      <td><%=(band[18] ) %> Mbps</td> 
-    </tr> 
-    <tr>  
-      <td class="id_cell">5</td>  
-      <td><%=(date[4] || '') %></td>  
-      <td><%=(band[22] ) %> Mbps</td> 
+      <td class="id_cell"><%=d%></td>  
+      <td><%=((isAvaliableSource.data[d].date.replace("/", "")))%></td>
+      <td><%=(isAvaliableSource.data[d].band)%> Mbps</td>  
     </tr>
+    <%}%>
     <tr>  
       <td></td>
       <td class="average_cell">Average</td>  
-      <td class="average_cell_result"><%=(average || '') %> Mbps</td> 
+      <td class="average_cell_result"><%=average %> Mbps</td> 
     </tr>
   </tbody>  
 </table>

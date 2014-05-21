@@ -14,7 +14,7 @@ app.use(partials());
 
 
 app.configure(function(){
-    app.set('port', process.env.PORT || 5000);
+    app.set('port', process.env.PORT || 80);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
     app.use(express.favicon(__dirname + '/public/images/fi_lab_app/icons/header-logo.png'));

@@ -200,7 +200,7 @@ exports.testbdwhist = function(req, res) {
                   			
             	      		fbResponse = resp.body[1];
 
-                            console.log('[-] Response from NAM ', fbResponse);
+                            console.log('[-] Response from NAM ', resp.body);
 
             	     		var resul = {
                                 RegionIdD : source,
@@ -214,8 +214,7 @@ exports.testbdwhist = function(req, res) {
                                 interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
                                 transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
                                 bandwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm),
-                                date: [],
-                                band: []
+                                data: []
             	      		};
 
             	      		for (i in resul.bandwidth){
@@ -223,14 +222,11 @@ exports.testbdwhist = function(req, res) {
             	      		}
             	      		  
             	      		for (i in resp.body){
-            	      			resul.date.push(resp.body[i].timestamp);
+                                var d = {};
+                                d.date = resp.body[i].timestamp;
             	      			var bandw = resp.body[i].result.match(/([0-9.]+)( Mbits)/gm);
-            	      			var sum = 0;
-            	      			for (i in bandw){
-            	      			    bandw[i]= parseFloat(bandw[i].match(/[0-9.]+/));
-            	      			    sum += bandw[i];
-            		      		    resul.band.push(bandw[i]);
-            		      		}
+                                d.band = parseFloat(bandw[5].match(/[0-9.]+/));
+                                resul.data.push(d);
             	      		}
             	      		
             	      		if (fbResponse.error != 0 || resul.bandwidth == null) {

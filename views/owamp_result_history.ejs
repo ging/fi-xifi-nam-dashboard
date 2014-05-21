@@ -21,13 +21,7 @@ $(function () {
           floating: true
         },
         xAxis: {
-            categories: [
-                <%=(isAvaliableSource.owd_data[1]).toString()%> , "2", "3", "4", "5"              
-            ],
-            plotBands: [{ // visualize the weekend
-                from: -0.4,
-                to: 6.4,
-            }]
+            categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
         },
         yAxis: {
           title: {
@@ -53,13 +47,13 @@ $(function () {
         },
         series: [{
             name: 'Max',
-            data: [<%=(isAvaliableSource.owd_data[1])%>,<%=(isAvaliableSource.owd_data[7])%>,<%=(isAvaliableSource.owd_data[13])%>,<%=(isAvaliableSource.owd_data[19])%>,<%=(isAvaliableSource.owd_data[25])%>]
+            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].max)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
         }, {
             name: 'Min',
-            data: [<%=(isAvaliableSource.owd_data[0])%>,<%=(isAvaliableSource.owd_data[6])%>,<%=(isAvaliableSource.owd_data[12])%> ,<%=(isAvaliableSource.owd_data[18])%>,<%=(isAvaliableSource.owd_data[24])%>]
+            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].min)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
         },  {
             name: 'Jitter',
-            data: [<%=(isAvaliableSource.owd_data[4])%>,<%=(isAvaliableSource.owd_data[10])%>,<%=(isAvaliableSource.owd_data[16])%>,<%=(isAvaliableSource.owd_data[22])%>,<%=(isAvaliableSource.owd_data[28])%>]
+            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].jitter)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
         }]
     });
 });
@@ -79,11 +73,11 @@ $(function () {
   <tbody>
     <%for (var d in isAvaliableSource.data) {%>
     <tr>  
-      <th class="id_cell"><%=d%></th>  
+      <td class="id_cell"><%=d%></td>  
       <td><%=((isAvaliableSource.data[d].date.replace("/", "")))%></td>
-      <td><%=(isAvaliableSource.data[d].min ||)%> ms</td>  
-      <td><%=(isAvaliableSource.data[d].max ||)%>  ms</td>  
-      <td><%=(isAvaliableSource.data[d].jitter ||)%> ms</td>  
+      <td><%=(isAvaliableSource.data[d].min)%> ms</td>  
+      <td><%=(isAvaliableSource.data[d].max)%> ms</td>  
+      <td><%=(isAvaliableSource.data[d].jitter)%> ms</td>  
     </tr>
     <%}%>
   </tbody>  
