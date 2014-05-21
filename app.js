@@ -1,5 +1,6 @@
 var express = require('express')
   , routes = require('./routes')
+  , nodes_model = require('./models/nodes')
   , http = require('http')
   , path = require('path')
   , partials = require ('express-partials') 
@@ -81,7 +82,9 @@ app.post('/owdhistory',
 
 app.get('/nodes_status', 
         sessionController.requiresLogin,
-        routes.nodes_status);
+        function (req, res) {
+            res.send(nodes_model.nam_nodes_status);
+        });
 
 app.get('/login',  sessionController.new);
 app.get('/logout', sessionController.destroy);
@@ -89,3 +92,7 @@ app.get('/logout', sessionController.destroy);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+nodes_model.update_nodes();
+
+setInterval(nodes_model.update_nodes, 5*60*1000);

@@ -86,31 +86,42 @@ window.onload = function () {
 	    $('#results_graph').html('');
 	});
 
-	var check_nam_services = function () {
+	// var check_nam_services = function () {
 
-		$.ajax({
-		  	type: 'GET',
-		  	url: '/nodes_status',
-		  	success: function(data) {
-		  		console.log('Result band', data);
-		  		for (var n in data) {
-		  			if (data[n].band) {
-		  				$('#' + n + '_band').children().addClass('up');
-		  			} else {
-		  				$('#' + n + '_band').children().addClass('down');
-		  			}
-		  			if (data[n].lat) {
-		  				$('#' + n + '_lat').children().addClass('up');
-		  			} else {
-		  				$('#' + n + '_lat').children().addClass('down');
-		  			}
-		  		}
-			},
-		  	error: function(xhr, textStatus, error){
-		  		console.log('Error band', error);
-		  	}
-		});
+	// 	$.ajax({
+	// 	  	type: 'GET',
+	// 	  	url: '/nodes_status',
+	// 	  	success: function(data) {
+	// 	  		console.log('Result band', data);
+	// 	  		for (var n in data) {
+	// 	  			if (data[n].band) {
+	// 	  				$('#' + n + '_band').children().addClass('up');
+	// 	  			} else {
+	// 	  				$('#' + n + '_band').children().addClass('down');
+	// 	  			}
+	// 	  			if (data[n].lat) {
+	// 	  				$('#' + n + '_lat').children().addClass('up');
+	// 	  			} else {
+	// 	  				$('#' + n + '_lat').children().addClass('down');
+	// 	  			}
+	// 	  		}
+	// 		},
+	// 	  	error: function(xhr, textStatus, error){
+	// 	  		console.log('Error band', error);
+	// 	  	}
+	// 	});
+	// }
+
+	for (var n in nam_nodes_status) {
+		if (nam_nodes_status[n].band) {
+			$('#' + n + '_band').children().addClass('up');
+		} else {
+			$('#' + n + '_band').children().addClass('down');
+		}
+		if (nam_nodes_status[n].lat) {
+			$('#' + n + '_lat').children().addClass('up');
+		} else {
+			$('#' + n + '_lat').children().addClass('down');
+		}
 	}
-
-	check_nam_services();
 };
