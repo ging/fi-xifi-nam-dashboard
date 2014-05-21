@@ -42,6 +42,11 @@ body {
 	padding-bottom: 15px;
 }
 
+.title_icon {
+	margin-right: 15px;
+	color: #60C0CE;
+}
+
 #nam_description {
 	padding-left: 15px;
 }
@@ -387,4 +392,44 @@ footer {
 .close_button {
 	color: white;
 	background-color: #152859;
+}
+
+#status_table_container {
+	padding-left: 0;
+	height: 592px;
+}
+
+#status_table th {
+	color: #60C0CE;
+	font-weight: normal;
+	border-bottom: none;
+	text-align: right;
+}
+
+#status_table td {
+	border-top: none;
+	text-align: center;
+}
+
+#status_table .id_cell {
+	text-align: right;
+	color: #152859;
+	border-right: 3px solid #152859;
+}
+
+.status_point {
+	background: rgb(248, 156, 39);
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-top: 5px;
+	margin-left: 50%;
+}
+
+.status_point.up{
+	background: rgb(148, 207, 74);
+}
+
+.status_point.down{
+	background: rgb(196, 0, 0);
 }

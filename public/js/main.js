@@ -8,7 +8,7 @@ window.onload = function () {
 		    var new_options = nam_nodes[val];
 
 		    for (var o in new_options) {
-		    	$("#" + this.id + "_ip").append("<option>" + new_options[o] + "</option>");
+		    	$("#" + this.id + "_ip").append("<option>" + new_options[o].ip + "</option>");
 		    }
 		    $("#" + this.id + "_ip").selectbox("attach");
 		}
@@ -85,4 +85,32 @@ window.onload = function () {
 	    $('#results_table').html('');
 	    $('#results_graph').html('');
 	});
+
+	var check_nam_services = function () {
+
+		$.ajax({
+		  	type: 'GET',
+		  	url: '/nodes_status',
+		  	success: function(data) {
+		  		console.log('Result band', data);
+		  		for (var n in data) {
+		  			if (data[n].band) {
+		  				$('#' + n + '_band').children().addClass('up');
+		  			} else {
+		  				$('#' + n + '_band').children().addClass('down');
+		  			}
+		  			if (data[n].lat) {
+		  				$('#' + n + '_lat').children().addClass('up');
+		  			} else {
+		  				$('#' + n + '_lat').children().addClass('down');
+		  			}
+		  		}
+			},
+		  	error: function(xhr, textStatus, error){
+		  		console.log('Error band', error);
+		  	}
+		});
+	}
+
+	check_nam_services();
 };

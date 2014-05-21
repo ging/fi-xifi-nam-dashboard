@@ -79,6 +79,10 @@ app.post('/owdhistory',
         sessionController.requiresLogin,
         test.testowdhist);
 
+app.get('/nodes_status', 
+        sessionController.requiresLogin,
+        routes.nodes_status);
+
 app.get('/login',  sessionController.new);
 app.get('/logout', sessionController.destroy);
 

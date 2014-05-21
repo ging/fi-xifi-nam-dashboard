@@ -1,6 +1,6 @@
 <div class="col-md-6">
   <div>
-    <h3 class="title3">Bandwidth Service</h3>
+    <h3 class="title3"><i class="fa fa-globe title_icon"></i>Bandwidth Service</h3>
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a class="serv_tab" href="#bw_demand" data-toggle="tab">Live Request</a></li>
@@ -22,7 +22,7 @@
                 <select id="bdw_demand_source_ip">
                   <%for (var i in nodes[Object.keys(nodes)[0]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
                     <%
                   }%>  
                 </select>
@@ -41,7 +41,7 @@
                 <select id="bdw_demand_dest_ip">
                   <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -70,7 +70,7 @@
                 <select id="bdw_hist_source_ip">
                   <%for (var i in nodes[Object.keys(nodes)[0]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -89,7 +89,7 @@
                 <select id="bdw_hist_dest_ip">
                   <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -109,7 +109,7 @@
 
 <div class="col-md-6">
   <div>
-    <h3 class="title3">Latency Service</h3>
+    <h3 class="title3"><i class="fa fa-tachometer title_icon"></i>Latency Service</h3>
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active"><a class="serv_tab" href="#latency_demand" data-toggle="tab">Live Request</a></li>
@@ -132,7 +132,7 @@
                 <select id="lat_demand_source_ip">
                   <%for (var i in nodes[Object.keys(nodes)[0]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -151,7 +151,7 @@
                 <select id="lat_demand_dest_ip">
                   <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -179,7 +179,7 @@
                 <select id="lat_hist_source_ip">
                   <%for (var i in nodes[Object.keys(nodes)[0]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
                     <%
                   }%> 
                 </select>
@@ -198,7 +198,7 @@
                 <select id="lat_hist_dest_ip">
                   <%for (var i in nodes[Object.keys(nodes)[1]]) {
                     %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i]%></option>
+                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
                     <%
                   }%> 
                 </select>
