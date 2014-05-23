@@ -1,62 +1,58 @@
 <script type="text/javascript">
 
-$(function () {
-	
-	
-    $('#results_graph').highcharts({
-        chart: {
-          marginBottom: 60
-        },
-        colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
-        title: {
-            text: 'One-Way Delay (ms)',
-            align: 'left',
-            margin: 30,
-            style: { "color": "#152859", "fontSize": "13px" }
-        },
-        legend: {
-          align: 'right',
-          verticalAlign: 'bottom',
-          borderWidth: 0,
-          floating: true
-        },
-        xAxis: {
-            categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
-        },
-        yAxis: {
-          title: {
-            text: null
-          },
-          labels: {
-            style: {
-              color: '#60C0CE'
-            }
-          }
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: ' ms'
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            areaspline: {
-                fillOpacity: 0.5
-            }
-        },
-        series: [{
-            name: 'Max',
-            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].max)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
-        }, {
-            name: 'Min',
-            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].min)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
-        },  {
-            name: 'Jitter',
-            data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].jitter)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
-        }]
-    });
-});
+  $('#results_graph').highcharts({
+    chart: {
+      marginBottom: 60
+    },
+    colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
+    title: {
+        text: 'One-Way Delay (ms)',
+        align: 'left',
+        margin: 30,
+        style: { "color": "#152859", "fontSize": "13px" }
+    },
+    legend: {
+      align: 'right',
+      verticalAlign: 'bottom',
+      borderWidth: 0,
+      floating: true
+    },
+    xAxis: {
+        categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+    },
+    yAxis: {
+      title: {
+        text: null
+      },
+      labels: {
+        style: {
+          color: '#60C0CE'
+        }
+      }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' ms'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: 'Max',
+        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].max)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+    }, {
+        name: 'Min',
+        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].min)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+    },  {
+        name: 'Jitter',
+        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].jitter)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+    }]
+  });
 
 </script>
 

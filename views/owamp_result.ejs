@@ -1,66 +1,63 @@
 <script type="text/javascript">
 
-$(function () {
-	
-    $('#results_graph').highcharts({
-        chart: {
-          marginBottom: 60
-        },
-        colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
+  $('#results_graph').highcharts({
+      chart: {
+        marginBottom: 60
+      },
+      colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
+      title: {
+          text: 'One-Way Delay (ms)',
+          align: 'left',
+          margin: 30,
+          style: { "color": "#152859", "fontSize": "13px" }
+      },
+      legend: {
+        align: 'right',
+        verticalAlign: 'bottom',
+        borderWidth: 0,
+        floating: true
+      },
+      xAxis: {
+          categories: [
+              'min',
+              'mediun',
+              'max'               
+          ],
+          plotBands: [{ // visualize the weekend
+              from: -0.4,
+              to: 6.4,
+          }]
+      },
+      yAxis: {
         title: {
-            text: 'One-Way Delay (ms)',
-            align: 'left',
-            margin: 30,
-            style: { "color": "#152859", "fontSize": "13px" }
+          text: null
         },
-        legend: {
-          align: 'right',
-          verticalAlign: 'bottom',
-          borderWidth: 0,
-          floating: true
-        },
-        xAxis: {
-            categories: [
-                'min',
-                'mediun',
-                'max'               
-            ],
-            plotBands: [{ // visualize the weekend
-                from: -0.4,
-                to: 6.4,
-            }]
-        },
-        yAxis: {
-          title: {
-            text: null
-          },
-          labels: {
-            style: {
-              color: '#60C0CE'
-            }
+        labels: {
+          style: {
+            color: '#60C0CE'
           }
-        },
-        tooltip: {
-            shared: true,
-            valueSuffix: ' ms'
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            areaspline: {
-                fillOpacity: 0.5
-            }
-        },
-        series: [{
-            name: 'one-way delay',
-            data: [<%=(isAvaliableSource.OWD[0])%>,<%=(isAvaliableSource.OWD[3])%>,<%=(isAvaliableSource.OWD[1])%> ]
-        }, {
-            name: 'Jitter',
-            data: [<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>]
-        }]
-    });
-});
+        }
+      },
+      tooltip: {
+          shared: true,
+          valueSuffix: ' ms'
+      },
+      credits: {
+          enabled: false
+      },
+      plotOptions: {
+          areaspline: {
+              fillOpacity: 0.5
+          }
+      },
+      series: [{
+          name: 'one-way delay',
+          data: [<%=(isAvaliableSource.OWD[0])%>,<%=(isAvaliableSource.OWD[3])%>,<%=(isAvaliableSource.OWD[1])%> ]
+      }, {
+          name: 'Jitter',
+          data: [<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>]
+      }]
+  });
 
 </script>
 

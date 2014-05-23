@@ -184,7 +184,7 @@ exports.testbdwhist = function(req, res) {
                 res.send(500, 'Error from NAM server ' + error);
          	} else {
          		
-        	    var path_call_bwctl = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/testshow/Bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+        	    var path_call_bwctl = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/Bdw/"+ source + "-" + source1 + ";" + destination + "-" + destination1 + '/5';
         	    var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 
                 console.log('[-] Sending request to', path_call_bwctl);
@@ -198,9 +198,9 @@ exports.testbdwhist = function(req, res) {
               		
                   		if (resp.body) {
                   			
-            	      		fbResponse = resp.body[1];
+            	      		fbResponse = resp.body;
 
-                            console.log('[-] Response from NAM ', resp.body);
+                            console.log('[-] Response from NAM ', fbResponse);
 
             	     		var resul = {
                                 RegionIdD : source,
@@ -211,31 +211,27 @@ exports.testbdwhist = function(req, res) {
                                 info: test_info,
                                 ipS : source,
                                 ipD : destination,
-                                interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
-                                transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
-                                bandwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm),
+                                // interval : fbResponse.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
+                                // transfer : fbResponse.result.match(/([0-9.]+)( MBytes )/gm), 
+                                // bandwidth : fbResponse.result.match(/([0-9.]+)( Mbits)/gm),
                                 data: []
             	      		};
-
-            	      		for (i in resul.bandwidth){
-            	      		   resul.bandwidth[i]=parseFloat(resul.bandwidth[i].match(/[0-9.]+/)); 
-            	      		}
             	      		  
-            	      		for (i in resp.body){
+            	      		for (i in fbResponse){
                                 var d = {};
-                                d.date = resp.body[i].timestamp;
-            	      			var bandw = resp.body[i].result.match(/([0-9.]+)( Mbits)/gm);
+                                d.date = fbResponse[i].timestamp;
+            	      			var bandw = fbResponse[i].result.match(/([0-9.]+)( Mbits)/gm);
                                 d.band = parseFloat(bandw[5].match(/[0-9.]+/));
                                 resul.data.push(d);
             	      		}
             	      		
-            	      		if (fbResponse.error != 0 || resul.bandwidth == null) {
-            	      			console.log('[-] Error from NAM server ' + fbResponse);
-                                res.send(500, 'Error from NAM server ' + fbResponse);
+            	      		if (resul.data.length === 0) {
+            	      			console.log('[-] Empty data');
+                                res.send(404, 'Empty data ');
             	      		} else {
                                 console.log('[-] Success. Sending response');
             	      			var str = FS.readFileSync(__dirname + '/../views/bwctl_result_history.ejs', 'utf8');
-                                var html = ejs.render(str, {r1: fbResponse.result, isAvaliableSource : resul, isAvaliableDestination:""});
+                                var html = ejs.render(str, {isAvaliableSource : resul, isAvaliableDestination:""});
                                 res.send(html);
             	      		}
                   			
@@ -278,7 +274,7 @@ exports.testowdhist = function(req, res) {
                 res.send(500, 'Error from NAM server ' + error);
             } else {
           
-                var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/testshow/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+                var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1 + '/5';
                 var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
                 var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 
@@ -315,10 +311,15 @@ exports.testowdhist = function(req, res) {
                                 }
                                 resul.data.push(d);
                             }
-                            console.log('[-] Success. Sending response');
-                            var str = FS.readFileSync(__dirname + '/../views/owamp_result_history.ejs', 'utf8');
-                            var html = ejs.render(str, {isAvaliableSource :resul, isAvaliableDestination:""});
-                            res.send(html);
+                            if (resul.data.length === 0) {
+                                console.log('[-] Empty data');
+                                res.send(404, 'Empty data ');
+                            } else {
+                                console.log('[-] Success. Sending response');
+                                var str = FS.readFileSync(__dirname + '/../views/owamp_result_history.ejs', 'utf8');
+                                var html = ejs.render(str, {isAvaliableSource :resul, isAvaliableDestination:""});
+                                res.send(html);
+                            }
                         } else {
                             console.log('[-] Error from NAM server 3 ', resp.body);
                             res.send(500, 'Error from NAM server ', resp.body);

@@ -4,7 +4,7 @@ var server = require('./../config').nam_server;
 exports.nam_nodes;
 exports.nam_nodes_status;
 
-var get_nodes = function (callback) {
+var get_nodes = function (callback, error_callback) {
 
     var path = "http://" + server + "/monitoring/nam/hosts_all";
 
@@ -12,7 +12,7 @@ var get_nodes = function (callback) {
 
     superagent.get(path).end(function(error, resp) {
         if(error) {
-            res.send("error" + error);
+            error_callback(error);
         } else {
             var nodes = resp.body;
             for (var n in nodes) {
@@ -45,32 +45,34 @@ exports.update_nodes = function() {
 
         for (var n in nodes) {
 
-            var band_url = 'http://' + nodes[n][0].ip + ':' + nodes[n][0].port + '/monitoring/iperf';
-            var lat_url = 'http://' + nodes[n][0].ip + ':' + nodes[n][0].port + '/monitoring/owdserver/1';
+            var band_url = 'http://' + nodes[n][0].ip + ':' + nodes[n][0].port + '/monitoring/nam/bdwstatus';
+            var lat_url = 'http://' + nodes[n][0].ip + ':' + nodes[n][0].port + '/monitoring/nam/owdstatus';
 
             hash[nodes[n][0].ip + ':' + nodes[n][0].port] = n;
             exports.nam_nodes_status[n] = {band: false, lat: false};
 
-            console.log('checking for ', n, band_url, lat_url, hash);
+            console.log('[--] Checking for ', n, band_url, lat_url, hash);
 
             superagent.get(band_url).end(function(error, resp) {
-                if(!error && resp.body.port_iperf) {
-                    console.log('Resp band from ', hash[resp.req._headers.host], resp.body);
+                if(!error && resp.body.bdw_status === true) {
+                    console.log('[--] Resp band from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].band = true;
                 } else {
-                    console.log('Error band ', error);
+                    console.log('[--] Error band ', error);
                 }
             });
 
             superagent.get(lat_url).end(function(error, resp) {
-                if(!error && resp.body.result === 'NTP OK ') {
+                if(!error && resp.body.odw_status === true) {
                     console.log('Resp lat from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].lat = true;
                 } else {
-                    console.log('Error lat ', error);
+                    console.log('[--] Error lat ', error);
                 }
             });
         }
 
+    }, function (e) {
+        console.log('[--] Error getting nodes ', e);
     });
 };

@@ -59,25 +59,31 @@ window.onload = function () {
 			destination1: dest_ip
 		};
 
-		$.ajax({
-		  	type: 'POST',
-		  	url: url,
-		  	data: body,
-		  	success: function(data) {
-		  		$('#connection_progress').hide();
-			  	$( "#results_table" ).html(data);
-			},
-		  	error: function(xhr, textStatus, error){
-			    console.log(xhr.status);
-			    $('#connection_progress').hide();
-			    $( "#results_table" ).html('Error getting data');
-		  	}
-		});
-		
 		$('#resutls_title').html(title);
 		$('#host_source').html(source + ' - ' + source_ip);
 		$('#host_dest').html(dest + ' - ' + dest_ip);
 		$('#result_modal').modal();
+
+		$('#result_modal').on('shown.bs.modal', function (e) {
+			$.ajax({
+			  	type: 'POST',
+			  	url: url,
+			  	data: body,
+			  	success: function(data) {
+			  		$('#connection_progress').hide();
+				  	$( "#results_table" ).html(data);
+				},
+			  	error: function(xhr, textStatus, error){
+				    console.log(xhr.status);
+				    $('#connection_progress').hide();
+				    if (xhr.status === 404) {
+				    	$( "#results_table" ).html('No data available for this test');
+				    } else {
+				    	$( "#results_table" ).html('Error getting data');
+				    }
+			  	}
+			});
+		});
 	});
 
 	$('#result_modal').on('hidden.bs.modal', function () {
