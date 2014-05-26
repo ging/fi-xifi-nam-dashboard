@@ -14,13 +14,15 @@ window.onload = function () {
 		}
 	});
 
+	var current_request;
+
 	$(".test_button").click(function(e) {
 
-		var url, source, source_ip, dest, dest_ip, title;
+		var req_url, source, source_ip, dest, dest_ip, title;
 
 		switch (e.target.id) {
 			case 'bdw_demand_button':
-				url = '/bdw';
+				req_url = '/bdw';
 				source = $('#bdw_demand_source').val();
 				source_ip = $('#bdw_demand_source_ip').val();
 				dest = $('#bdw_demand_dest').val();
@@ -28,7 +30,7 @@ window.onload = function () {
 				title = 'Bandwidth Test Results';
 				break;
 			case 'bdw_hist_button':
-				url = '/bdwhistory';
+				req_url = '/bdwhistory';
 				source = $('#bdw_hist_source').val();
 				source_ip = $('#bdw_hist_source_ip').val();
 				dest = $('#bdw_hist_dest').val();
@@ -36,7 +38,7 @@ window.onload = function () {
 				title = 'Bandwidth History Test Results';
 				break;
 			case 'lat_demand_button':
-				url = '/owd';
+				req_url = '/owd';
 				source = $('#lat_demand_source').val();
 				source_ip = $('#lat_demand_source_ip').val();
 				dest = $('#lat_demand_dest').val();
@@ -44,7 +46,7 @@ window.onload = function () {
 				title = 'Latency Test Results';
 				break;
 			case 'lat_hist_button':
-				url = '/owdhistory';
+				req_url = '/owdhistory';
 				source = $('#lat_hist_source').val();
 				source_ip = $('#lat_hist_source_ip').val();
 				dest = $('#lat_hist_dest').val();
@@ -52,11 +54,16 @@ window.onload = function () {
 				title = 'Latency History Test Results';
 				break;
 		}
-		var body = {
+		var req_body = {
 			source: source,
 			source1: source_ip,
 			destination: dest,
 			destination1: dest_ip
+		};
+
+		current_request = {
+			body: req_body,
+			url: req_url
 		};
 
 		$('#resutls_title').html(title);
@@ -64,29 +71,42 @@ window.onload = function () {
 		$('#host_dest').html(dest + ' - ' + dest_ip);
 		$('#result_modal').modal();
 
-		$('#result_modal').on('shown.bs.modal', function (e) {
-			$.ajax({
+	});
+
+	$('#result_modal').on('shown.bs.modal', function (e) {
+		if (!current_request.request) {
+
+			current_request.request = $.ajax({
 			  	type: 'POST',
-			  	url: url,
-			  	data: body,
+			  	url: current_request.url,
+			  	data: current_request.body,
 			  	success: function(data) {
-			  		$('#connection_progress').hide();
-				  	$( "#results_table" ).html(data);
+		  			$('#connection_progress').hide();
+			  		$('#results_table').html(data);
+
+			  		current_request = undefined;
 				},
 			  	error: function(xhr, textStatus, error){
-				    console.log(xhr.status);
 				    $('#connection_progress').hide();
 				    if (xhr.status === 404) {
-				    	$( "#results_table" ).html('No data available for this test');
+				    	$('#results_table').html('No data available for this test');
 				    } else {
-				    	$( "#results_table" ).html('Error getting data');
+				    	$('#results_table').html('Error getting data');
 				    }
+
+				    current_request = undefined;
 			  	}
 			});
-		});
+		}
 	});
 
 	$('#result_modal').on('hidden.bs.modal', function () {
+
+		if (current_request) {
+		    current_request.request.abort();
+		    current_request = undefined;
+		}
+
 	    $('#connection_progress').show();
 	    $('#results_table').html('');
 	    $('#results_graph').html('');
