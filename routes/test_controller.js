@@ -35,7 +35,7 @@ exports.testbdw = function(req, res) {
     	
     } else {
         
-	    var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+	    var path_call_bwctl = "http://"+server+"/monitoring/host2host/bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
 	    var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 	    console.log('[-] Sending request to', path_call_bwctl);
    
@@ -106,7 +106,7 @@ exports.testow = function(req, res) {
 
     } else {
     	
-    	var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+    	var path_call_bwctl = "http://"+server+"/monitoring/host2host/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
     	var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 	    
         console.info('[-] Sending request to', path_call_bwctl);
@@ -275,7 +275,7 @@ exports.testowdhist = function(req, res) {
             } else {
           
                 var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1 + '/5';
-                var path_call_bwctl = "http://"+server+"/monitoring/host2hosts/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
+                var path_call_bwctl = "http://"+server+"/monitoring/host2host/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
                 var test_info = source + "-" + source1 + ";" + destination+ "-" + destination1;
 
                 console.info('[-] Sending request to', path_call_owd);

@@ -25,6 +25,7 @@ exports.requiresLogin = function (req, res, next) {
         res.redirect(path);
     } else {
         req.cookies.dec_token = tok;
+        console.log(tok);
         next();
     }
 };
