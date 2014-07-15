@@ -54,20 +54,20 @@ exports.update_nodes = function() {
             console.log('[--] Checking for ', n, band_url, lat_url, hash);
 
             superagent.get(band_url).end(function(error, resp) {
-                if(!error && resp.body.bdw_status === true) {
+                if(!error && (resp.body.bdw_status || resp.body.bdw_status === 'true')) {
                     console.log('[--] Resp band from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].band = true;
                 } else {
-                    console.log('[--] Error band ', error);
+                    console.log('[--] Error band ', error, resp.body);
                 }
             });
 
             superagent.get(lat_url).end(function(error, resp) {
-                if(!error && resp.body.odw_status === true) {
+                if(!error && (resp.body.odw_status || resp.body.odw_status === 'true')) {
                     console.log('Resp lat from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].lat = true;
                 } else {
-                    console.log('[--] Error lat ', error);
+                    console.log('[--] Error lat ', error, resp.body);
                 }
             });
         }
