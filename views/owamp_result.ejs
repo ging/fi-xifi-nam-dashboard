@@ -52,10 +52,10 @@
       },
       series: [{
           name: 'one-way delay',
-          data: [<%=(isAvaliableSource.OWD[0])%>,<%=(isAvaliableSource.OWD[3])%>,<%=(isAvaliableSource.OWD[1])%> ]
+          data: [<%=data.owd_sc_min%>,<%=(data.owd_sc_min + data.owd_sc_max) / 2%>,<%=data.owd_sc_max%> ]
       }, {
           name: 'Jitter',
-          data: [<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>,<%=(isAvaliableSource.OWD[4])%>]
+          data: [<%=data.jitter_sc%>,<%=data.jitter_sc%>,<%=data.jitter_sc%>]
       }]
   });
 
@@ -73,14 +73,14 @@
   <tbody>  
     <tr>  
       <td class="id_cell">One-Way Delay</th>  
-      <td><%=(isAvaliableSource.OWD[0] || '')%> ms</td>  
-      <td><%=(isAvaliableSource.OWD[3]||'')%>  ms</td>  
-      <td><%=(isAvaliableSource.OWD[1]|| '')%> ms</td>  
+      <td><%=data.owd_sc_min || '-'%> ms</td>  
+      <td><%=(data.owd_sc_min + data.owd_sc_max) / 2 || '-'%>  ms</td>  
+      <td><%=data.owd_sc_max || '-'%> ms</td>  
     </tr>  
     <tr>  
       <td class="id_cell">Jitter</th>  
       <td> </td>  
-      <td><%=(isAvaliableSource.OWD[4] || '')%> ms</td>
+      <td><%=data.jitter_sc || '-'%> ms</td>
       <td> </td>
     </tr>  
   </tbody>  

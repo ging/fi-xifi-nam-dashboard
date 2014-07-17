@@ -1,7 +1,7 @@
 <script type="text/javascript">
-<% var interval = isAvaliableSource.interval %>
-<%var transfer = isAvaliableSource.transfer %>
-<%var bandwidth = isAvaliableSource.bandwidth %>
+<%var interval = data.interval %>
+<%var transfer = data.transfer %>
+<%var bandwidth = data.bandwidth %>
 <%var average=((bandwidth[0]+bandwidth[1]+bandwidth[2]+bandwidth[3]+bandwidth[4])/5).toPrecision(3)%>
 
 $('#results_graph').highcharts({

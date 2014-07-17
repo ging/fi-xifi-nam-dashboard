@@ -18,7 +18,7 @@
       floating: true
     },
     xAxis: {
-        categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        categories: [<% for (var d in data) { %> '<%=(data[d].date.replace("/", ""))%>'<% if (d <data.length - 1) { %> , <%}%><%}%>]
     },
     yAxis: {
       title: {
@@ -44,13 +44,13 @@
     },
     series: [{
         name: 'Max',
-        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].max)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        data: [<% for (var d in data) { %> <%=(data[d].max)%><% if (d < data.length - 1) { %> , <%}%><%}%>]
     }, {
         name: 'Min',
-        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].min)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        data: [<% for (var d in data) { %> <%=(data[d].min)%><% if (d < data.length - 1) { %> , <%}%><%}%>]
     },  {
         name: 'Jitter',
-        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].jitter)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        data: [<% for (var d in data) { %> <%=(data[d].jitter)%><% if (d < data.length - 1) { %> , <%}%><%}%>]
     }]
   });
 
@@ -67,13 +67,13 @@
     </tr>  
   </thead>  
   <tbody>
-    <%for (var d in isAvaliableSource.data) {%>
+    <%for (var d in data) {%>
     <tr>  
       <td class="id_cell"><%=d%></td>  
-      <td><%=((isAvaliableSource.data[d].date.replace("/", "")))%></td>
-      <td><%=(isAvaliableSource.data[d].min)%> ms</td>  
-      <td><%=(isAvaliableSource.data[d].max)%> ms</td>  
-      <td><%=(isAvaliableSource.data[d].jitter)%> ms</td>  
+      <td><%=((data[d].date.replace("/", "")))%></td>
+      <td><%=(data[d].min)%> ms</td>  
+      <td><%=(data[d].max)%> ms</td>  
+      <td><%=(data[d].jitter)%> ms</td>  
     </tr>
     <%}%>
   </tbody>  

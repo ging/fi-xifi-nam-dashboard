@@ -14,66 +14,98 @@ window.onload = function () {
 		}
 	});
 
-	var current_request;
+	var current_request = {
+		service: 'bandwidth',
+		type: 'live',
+		title: 'Bandwidth Test Results'
+	};
 
-	$(".test_button").click(function(e) {
+	$(".service_menu_item").click(function(e) {
 
-		var req_url, source, source_ip, dest, dest_ip, title;
+		$(".service_menu_item").removeClass('active');
+		e.currentTarget.className = e.currentTarget.className + ' active';
+		$("#option_icon").removeClass();
 
-		switch (e.target.id) {
-			case 'bdw_demand_button':
-				req_url = '/bdw';
-				source = $('#bdw_demand_source').val();
-				source_ip = $('#bdw_demand_source_ip').val();
-				dest = $('#bdw_demand_dest').val();
-				dest_ip = $('#bdw_demand_dest_ip').val();
-				title = 'Bandwidth Test Results';
+		$("#history").removeClass('active');
+		$("#live").addClass('active');
+
+		current_request.service = e.currentTarget.id;
+		current_request.type = 'live';
+
+		switch(current_request.service) {
+			case 'bandwidth':
+				$("#service_description_text").html('Test the available Bandwidth between hosts')
+				$("#option_icon").addClass('fa fa-tachometer');
 				break;
-			case 'bdw_hist_button':
-				req_url = '/bdwhistory';
-				source = $('#bdw_hist_source').val();
-				source_ip = $('#bdw_hist_source_ip').val();
-				dest = $('#bdw_hist_dest').val();
-				dest_ip = $('#bdw_hist_dest_ip').val();
-				title = 'Bandwidth History Test Results';
+
+			case 'latency':
+				$("#service_description_text").html('Test the current network Latency between hosts')
+				$("#option_icon").addClass('fa fa-exchange');
 				break;
-			case 'lat_demand_button':
-				req_url = '/owd';
-				source = $('#lat_demand_source').val();
-				source_ip = $('#lat_demand_source_ip').val();
-				dest = $('#lat_demand_dest').val();
-				dest_ip = $('#lat_demand_dest_ip').val();
-				title = 'Latency Test Results';
-				break;
-			case 'lat_hist_button':
-				req_url = '/owdhistory';
-				source = $('#lat_hist_source').val();
-				source_ip = $('#lat_hist_source_ip').val();
-				dest = $('#lat_hist_dest').val();
-				dest_ip = $('#lat_hist_dest_ip').val();
-				title = 'Latency History Test Results';
+
+			case 'packet':
+				$("#service_description_text").html('Test the Packet Loss level between hosts')
+				$("#option_icon").addClass('fa fa-ellipsis-h');
 				break;
 		}
-		var req_body = {
-			source: source,
-			source1: source_ip,
-			destination: dest,
-			destination1: dest_ip
+	});
+
+	$(".serv_tab").click(function(e) {
+		current_request.type = e.currentTarget.parentElement.id;
+	});
+
+
+	$("#send_button").click(function(e) {
+
+		current_request.body = {
+			source: $('#source').val(),
+			source1: $('#source_ip').val(),
+			destination: $('#dest').val(),
+			destination1: $('#dest_ip').val()
 		};
 
-		current_request = {
-			body: req_body,
-			url: req_url
-		};
+		switch (current_request.service) {
+			case 'bandwidth':
+				if (current_request.type === 'live') {
+					current_request.title = 'Bandwidth Test Results'
+					current_request.url = '/bdw';
+				} else {
+					current_request.title = 'Bandwidth History Test Results'
+					current_request.url = '/bdwhistory';
+				}
+				break;
 
-		$('#resutls_title').html(title);
-		$('#host_source').html(source + ' - ' + source_ip);
-		$('#host_dest').html(dest + ' - ' + dest_ip);
+			case 'latency':
+				if (current_request.type === 'live') {
+					current_request.title = 'Latency Test Results';
+					current_request.url = '/owd';
+				} else {
+					current_request.title = 'Latency History Test Results';
+					current_request.url = '/owdhistory';
+				}
+				break;
+
+			case 'packet':
+				if (current_request.type === 'live') {
+					current_request.title = 'Packet Loss Test Results';
+					current_request.url = '/ploss';
+				}
+				else {
+					current_request.title = 'Packet Loss History Test Results';
+					current_request.url = '/plosshistory';
+				}
+				break;
+		}
+
+		$('#resutls_title').html(current_request.title);
+		$('#host_source').html(current_request.body.source + ' - ' + current_request.body.source1);
+		$('#host_dest').html(current_request.body.destination + ' - ' + current_request.body.destination1);
 		$('#result_modal').modal();
 
 	});
 
 	$('#result_modal').on('shown.bs.modal', function (e) {
+
 		if (!current_request.request) {
 
 			current_request.request = $.ajax({
@@ -84,7 +116,7 @@ window.onload = function () {
 		  			$('#connection_progress').hide();
 			  		$('#results_table').html(data);
 
-			  		current_request = undefined;
+			  		delete current_request.request;
 				},
 			  	error: function(xhr, textStatus, error){
 				    $('#connection_progress').hide();
@@ -94,7 +126,7 @@ window.onload = function () {
 				    	$('#results_table').html('Error getting data');
 				    }
 
-				    current_request = undefined;
+				    delete current_request.request;
 			  	}
 			});
 		}
@@ -102,9 +134,9 @@ window.onload = function () {
 
 	$('#result_modal').on('hidden.bs.modal', function () {
 
-		if (current_request) {
+		if (current_request.request) {
 		    current_request.request.abort();
-		    current_request = undefined;
+		    delete current_request.request;
 		}
 
 	    $('#connection_progress').show();

@@ -80,6 +80,13 @@ app.post('/owdhistory',
         sessionController.requiresLogin,
         test.testowdhist);
 
+app.post('/ploss', 
+        sessionController.requiresLogin,
+        test.testloss);
+app.post('/plosshistory', 
+        sessionController.requiresLogin,
+        test.testlosshist);
+
 app.get('/nodes_status', 
         sessionController.requiresLogin,
         function (req, res) {

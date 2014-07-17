@@ -49,6 +49,7 @@ body {
 
 #nam_description {
 	padding-left: 15px;
+	padding-right: 15px;
 }
 
 #load_spinner {
@@ -66,9 +67,10 @@ body {
 }
 
 #container {
+	width: 100%;
 	margin-top: 60px;
-	padding-left: 50px;
-	padding-right: 50px;
+	padding-left: 100px;
+	padding-right: 100px;
 }
 
 header#oil-nav {
@@ -119,7 +121,10 @@ header#oil-nav nav.navbar-inner .logo-header {
 
 a {
 	color: #0093C6;
-	
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 .navbar {
@@ -141,6 +146,7 @@ a {
 .nav-tabs a {
 	color: #60C0CE;
 }
+
 
 footer {
 	padding-top: 50px;
@@ -173,9 +179,15 @@ footer {
 	padding-bottom: 40px;
 }
 
-.test_button {
-	margin-top: 30px;
-	text-align: right;	
+#test_footer {
+	margin-top: 35px;
+}
+
+#send_button {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 25%;
 }
 
 .btn-blue {
@@ -395,7 +407,7 @@ footer {
 
 #status_table_container {
 	padding-left: 0;
-	height: 592px;
+	height: 572px;
 }
 
 #status_table th {
@@ -425,10 +437,59 @@ footer {
 	margin-left: 50%;
 }
 
-.status_point.up{
+.status_point.up {
 	background: rgb(148, 207, 74);
 }
 
-.status_point.down{
+.status_point.down {
 	background: rgb(196, 0, 0);
+}
+
+#body_index {
+	padding-top: 35px;
+}
+
+#service_description {
+	padding-bottom: 10px;
+}
+
+#service_description_text {
+	color: grey;
+	width: 75%;
+}
+
+#option_icon {
+	font-size: 50px;
+	color: #60C0CE;
+	position: absolute;
+	right: 60px;
+	opacity: 0.3;
+	top: 20px;
+}
+
+.service_menu {
+	padding-right: 0 !important;
+	padding-top: 85px;
+	margin-right: -15px;
+	z-index: 1;
+}
+
+.service_menu_item {
+	cursor: pointer;
+	list-style: none;
+	padding-top: 1px;
+	padding-left: 45px;
+	padding-right: 45px;
+}
+
+.service_menu_item.active {
+
+	-moz-box-shadow: 0px 0px 10px rgb(211, 211, 211);
+	-webkit-box-shadow: 0px 0px 10px rgb(211, 211, 211);
+	box-shadow: -5px 0px 8px rgb(211, 211, 211);
+
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+	
+	background-color: white;
 }

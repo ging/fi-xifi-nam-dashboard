@@ -3,10 +3,10 @@
 <%
 var total = 0;
 var average;
-for (var d in isAvaliableSource.data) {
-  total = total + isAvaliableSource.data[d].band;
+for (var d in data) {
+  total = total + data[d].band;
 }
-average = (total / isAvaliableSource.data.length).toPrecision(3);
+average = (total / data.length).toPrecision(3);
 %>
   $('#results_graph').highcharts({
     chart: {
@@ -26,7 +26,7 @@ average = (total / isAvaliableSource.data.length).toPrecision(3);
       floating: true
     },
     xAxis: {
-        categories: [<% for (var d in isAvaliableSource.data) { %> '<%=(isAvaliableSource.data[d].date.replace("/", ""))%>'<% if (d <isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        categories: [<% for (var d in data) { %> '<%=(data[d].date.replace("/", ""))%>'<% if (d <data.length - 1) { %> , <%}%><%}%>]
     },
     yAxis: {
       title: {
@@ -52,7 +52,7 @@ average = (total / isAvaliableSource.data.length).toPrecision(3);
     },
     series: [{
         name: 'Interval measurements',
-        data: [<% for (var d in isAvaliableSource.data) { %> <%=(isAvaliableSource.data[d].band)%><% if (d < isAvaliableSource.data.length - 1) { %> , <%}%><%}%>]
+        data: [<% for (var d in data) { %> <%=(data[d].band)%><% if (d < data.length - 1) { %> , <%}%><%}%>]
     }, {
         name: 'Average measurement',
         data: [<%=average%>, <%=average%>, <%=average%>, <%=average%>, <%=average%>]
@@ -69,11 +69,11 @@ average = (total / isAvaliableSource.data.length).toPrecision(3);
     </tr>  
   </thead>  
   <tbody>
-    <%for (var d in isAvaliableSource.data) {%>
+    <%for (var d in data) {%>
     <tr>  
       <td class="id_cell"><%=d%></td>  
-      <td><%=((isAvaliableSource.data[d].date.replace("/", "")))%></td>
-      <td><%=(isAvaliableSource.data[d].band)%> Mbps</td>  
+      <td><%=((data[d].date.replace("/", "")))%></td>
+      <td><%=(data[d].band)%> Mbps</td>  
     </tr>
     <%}%>
     <tr>  

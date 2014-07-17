@@ -1,215 +1,66 @@
-<div class="col-md-6">
-  <div>
-    <h3 class="title3"><i class="fa fa-globe title_icon"></i>Bandwidth Service</h3>
-    <div class="tabbable">
-      <ul class="nav nav-tabs">
-        <li class="active"><a class="serv_tab" href="#bw_demand" data-toggle="tab">Live Request</a></li>
-        <li><a class="serv_tab" href="#bw_history" data-toggle="tab">History</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="bw_demand">
-          <div>
-            <div class="all_form">
-              <div class="all_form_row">
-                <label class="serv_label" for="source">Host source:</label> 
-                <select id="bdw_demand_source" >
-                  <%for (var n in nodes) {
-                    %>
-                      <option><%=n%></option>
-                    <%
-                  }%>
-                </select>
-                <select id="bdw_demand_source_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
-                    <%
-                  }%>  
-                </select>
-              </div>
-              <div class="all_form_row">
-                <label class="serv_label" for="destination">Host destination:</label> 
-                <select id="bdw_demand_dest" class="host">
-                  <%var count = 0; 
-                    for (var n in nodes) {
-                    %>
-                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
-                    <%
-                  count ++;
-                  }%>     
-                </select>
-                <select id="bdw_demand_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>          
-              <div class="all_form_row">
-                <div class="test_button">
-                    <button id="bdw_demand_button" class="btn btn-blue">Test</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="tab-pane" id="bw_history">
-          <div>
-            <div class="all_form">
-              <div class="all_form_row">
-                <label class="serv_label" for="source">Host source:</label> 
-                <select id="bdw_hist_source" class="host" >
-                  <%for (var n in nodes) {
-                    %>
-                      <option><%=n%></option>
-                    <%
-                  }%>    
-                </select>
-                <select id="bdw_hist_source_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <label class="serv_label" for="destination">Host destination:</label> 
-                <select id="bdw_hist_dest" class="host">
-                  <%var count = 0; 
-                    for (var n in nodes) {
-                    %>
-                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
-                    <%
-                  count ++;
-                  }%>     
-                </select>
-                <select id="bdw_hist_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <div class="test_button">          
-                  <button id="bdw_hist_button" class="btn btn-blue">Test</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="col-md-6 service_menu">
+  <ul class="">
+    <li id="bandwidth" class="service_menu_item active"><h3 class="title3"><i class="fa fa-tachometer title_icon"></i>Bandwidth Service</h3></li>
+    <li id="latency" class="service_menu_item"><h3 class="title3"><i class="fa fa-exchange title_icon"></i>Latency Service</h3></li>
+    <li id="packet" class="service_menu_item"><h3 class="title3"><i class="fa fa-ellipsis-h title_icon"></i>Packet Loss Service</h3></li>
+  </ul>
 </div>
 
 <div class="col-md-6">
-  <div>
-    <h3 class="title3"><i class="fa fa-tachometer title_icon"></i>Latency Service</h3>
-    <div class="tabbable">
-      <ul class="nav nav-tabs">
-        <li class="active"><a class="serv_tab" href="#latency_demand" data-toggle="tab">Live Request</a></li>
-        <li><a class="serv_tab" href="#latency_history" data-toggle="tab">History</a></li>
-      </ul>
-      
-      <div class="tab-content">
-        <div class="tab-pane active" id="latency_demand">
-          <div class="left_box" id="all_form">
-            <div class="all_form">
-              <div class="all_form_row">
-                <label class="serv_label" for="source">Host source:</label>
-                <select id="lat_demand_source" class="host" >
-                  <%for (var n in nodes) {
-                    %>
-                      <option><%=n%></option>
-                    <%
-                  }%>    
-                </select>
-                <select id="lat_demand_source_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <label class="serv_label" for="destination">Host destination:</label> 
-                <select id="lat_demand_dest" class="host">
-                  <%var count = 0; 
-                    for (var n in nodes) {
-                    %>
-                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
-                    <%
-                  count ++;
-                  }%>      
-                </select>
-                <select id="lat_demand_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <div class="test_button">
-                  <button id="lat_demand_button" class="btn btn-blue">Test</button>
-                </div>
-              </div>
+  <div class="tabbable">
+    <div id="service_description">
+      <i id="option_icon" class="fa fa-tachometer"></i>
+    </div>
+    <ul class="nav nav-tabs">
+      <li id="live" class="active"><a class="serv_tab" href="#" data-toggle="tab">Live Request</a></li>
+      <li id="history"><a class="serv_tab" href="#" data-toggle="tab">History</a></li>
+    </ul>
+    
+    <div class="tab-content">
+      <div class="tab-pane active">
+        <div class="left_box" id="all_form">
+          <div class="all_form">
+            <div class="all_form_row">
+              <label class="serv_label" for="source">Host source:</label>
+              <select id="source" class="host" >
+                <%for (var n in nodes) {
+                  %>
+                    <option><%=n%></option>
+                  <%
+                }%>    
+              </select>
+              <select id="source_ip">
+                <%for (var i in nodes[Object.keys(nodes)[0]]) {
+                  %>
+                    <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
+                  <%
+                }%> 
+              </select>
+            </div>
+            <div class="all_form_row">
+              <label class="serv_label" for="destination">Host destination:</label> 
+              <select id="dest" class="host">
+                <%var count = 0; 
+                  for (var n in nodes) {
+                  %>
+                    <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
+                  <%
+                count ++;
+                }%>      
+              </select>
+              <select id="dest_ip">
+                <%for (var i in nodes[Object.keys(nodes)[1]]) {
+                  %>
+                    <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
+                  <%
+                }%> 
+              </select>
+            </div>
+            <div class="all_form_row" id="test_footer">
+              <p id="service_description_text">Test the available Bandwidth between hosts</p>
+              <button id="send_button" class="btn btn-blue">Test</button>
             </div>
           </div>
-        </div>
-        <div class="tab-pane" id="latency_history">
-          <div>
-            <div class="all_form">
-              <div class="all_form_row">
-                <label class="serv_label" for="source">Host source:</label>
-                <select id="lat_hist_source" class="host" >
-                  <%for (var n in nodes) {
-                    %>
-                      <option><%=n%></option>
-                    <%
-                  }%> 
-                </select>
-                <select id="lat_hist_source_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[0]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <label class="serv_label" for="destination">Host destination:</label> 
-                <select id="lat_hist_dest" class="host">
-                  <%var count = 0; 
-                    for (var n in nodes) {
-                    %>
-                      <option <%if (count === 1) {%> selected="selected"<%}%> ><%=n%></option>
-                    <%
-                  count ++;
-                  }%>    
-                </select>
-                <select id="lat_hist_dest_ip">
-                  <%for (var i in nodes[Object.keys(nodes)[1]]) {
-                    %>
-                      <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
-                    <%
-                  }%> 
-                </select>
-              </div>
-              <div class="all_form_row">
-                <div class="test_button">
-                  <button id="lat_hist_button" class="btn btn-blue">Test</button>
-                </div>
-              </div>
-            </div>
-          </div>    
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ exports.update_nodes = function() {
                     console.log('[--] Resp band from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].band = true;
                 } else {
-                    console.log('[--] Error band ', error, resp.body);
+                    console.log('[--] Error band ', error);
                 }
             });
 
@@ -67,7 +67,7 @@ exports.update_nodes = function() {
                     console.log('Resp lat from ', hash[resp.req._headers.host], resp.body);
                     exports.nam_nodes_status[hash[resp.req._headers.host]].lat = true;
                 } else {
-                    console.log('[--] Error lat ', error, resp.body);
+                    console.log('[--] Error lat ', error);
                 }
             });
         }
