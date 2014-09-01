@@ -157,32 +157,32 @@ exports.testloss = function(req, res) {
 
                 console.log('[-] Response from NAM ', response);
 
-                if(!response.error && response.result) {
+                // if(!response.error && response.result) {
                     
-                    var resul = {
-                        interval : response.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
-                        transfer : response.result.match(/([0-9.]+)( MBytes )/gm), 
-                        bandwidth : response.result.match(/([0-9.]+)( Mbits)/gm)
-                    };
+                //     var resul = {
+                //         interval : response.result.match(/([0-9.]+)([- ])([ 0-9.]+)( sec)/gm), 
+                //         transfer : response.result.match(/([0-9.]+)( MBytes )/gm), 
+                //         bandwidth : response.result.match(/([0-9.]+)( Mbits)/gm)
+                //     };
 
-                    for (var i in resul.bandwidth){
-                      resul.bandwidth[i] = parseFloat(resul.bandwidth[i].match(/[0-9.]+/)); 
-                    }
+                //     for (var i in resul.bandwidth){
+                //       resul.bandwidth[i] = parseFloat(resul.bandwidth[i].match(/[0-9.]+/)); 
+                //     }
 
-                    if (response.error != 0 || resul.bandwidth == null) {
-                        console.log('[-] Error from NAM server 2 ' + response.result);
-                        res.send(500, 'Error from NAM server' + response.result);
-                    } else {
-                        console.log('[-] Success. Sending response');
-                        var str = FS.readFileSync(__dirname + '/../views/bwctl_result.ejs', 'utf8');
-                        var html = ejs.render(str, {data : resul});
-                        res.send(html);
-                    }
+                //     if (response.error != 0 || resul.bandwidth == null) {
+                //         console.log('[-] Error from NAM server 2 ' + response.result);
+                //         res.send(500, 'Error from NAM server' + response.result);
+                //     } else {
+                //         console.log('[-] Success. Sending response');
+                //         var str = FS.readFileSync(__dirname + '/../views/bwctl_result.ejs', 'utf8');
+                //         var html = ejs.render(str, {data : resul});
+                //         res.send(html);
+                //     }
                 
-                } else {
-                    console.log('Error from NAM server 3 ', + response);
-                    res.send(500, 'Error from NAM server', + response);
-                }           
+                // } else {
+                //     console.log('Error from NAM server 3 ', + response);
+                //     res.send(500, 'Error from NAM server', + response);
+                // }           
             }
         });
     }

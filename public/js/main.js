@@ -1,18 +1,29 @@
 window.onload = function () {
-	$("select").selectbox({
-		 onChange: function (val, inst) {
-		    this.value = val;
-		    $("#" + this.id + "_ip").selectbox("detach");
 
-		    $("#" + this.id + "_ip").empty();
-		    var new_options = nam_nodes[val];
+	var updateSelectBoxes = function () {
 
-		    for (var o in new_options) {
-		    	$("#" + this.id + "_ip").append("<option>" + new_options[o].ip + "</option>");
-		    }
-		    $("#" + this.id + "_ip").selectbox("attach");
-		}
-	});
+		$("select").selectbox("detach");
+
+		$("select").selectbox({
+			 onChange: function (val, inst) {
+
+			    this.value = val;
+
+			    if (this.id === 'source' || this.id === 'dest') {
+				    $("#" + this.id + "_ip").empty();
+				    var new_options = nam_nodes[val];
+
+				    for (var o in new_options) {
+				    	$("#" + this.id + "_ip").append("<option>" + new_options[o].ip + "</option>");
+				    }
+			    }
+			    updateSelectBoxes();
+			}
+		});
+		
+	};
+
+	updateSelectBoxes();
 
 	var current_request = {
 		service: 'bandwidth',
