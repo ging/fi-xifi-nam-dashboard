@@ -1,0 +1,87 @@
+<script type="text/javascript">
+
+  // $('#results_graph').highcharts({
+  //     chart: {
+  //       marginBottom: 60
+  //     },
+  //     colors: ['#152859', '#666666', '#60C0CE', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],
+  //     title: {
+  //         text: 'One-Way Delay (ms)',
+  //         align: 'left',
+  //         margin: 30,
+  //         style: { "color": "#152859", "fontSize": "13px" }
+  //     },
+  //     legend: {
+  //       align: 'right',
+  //       verticalAlign: 'bottom',
+  //       borderWidth: 0,
+  //       floating: true
+  //     },
+  //     xAxis: {
+  //         categories: [
+  //             'min',
+  //             'mediun',
+  //             'max'               
+  //         ],
+  //         plotBands: [{ // visualize the weekend
+  //             from: -0.4,
+  //             to: 6.4,
+  //         }]
+  //     },
+  //     yAxis: {
+  //       title: {
+  //         text: null
+  //       },
+  //       labels: {
+  //         style: {
+  //           color: '#60C0CE'
+  //         }
+  //       }
+  //     },
+  //     tooltip: {
+  //         shared: true,
+  //         valueSuffix: ' ms'
+  //     },
+  //     credits: {
+  //         enabled: false
+  //     },
+  //     plotOptions: {
+  //         areaspline: {
+  //             fillOpacity: 0.5
+  //         }
+  //     },
+  //     series: [{
+  //         name: 'one-way delay',
+  //         data: [<%=data.owd_sc_min%>,<%=(data.owd_sc_min + data.owd_sc_max) / 2%>,<%=data.owd_sc_max%> ]
+  //     }, {
+  //         name: 'Jitter',
+  //         data: [<%=data.jitter_sc%>,<%=data.jitter_sc%>,<%=data.jitter_sc%>]
+  //     }]
+  // });
+
+</script>
+
+<table class="table">  
+  <!--<thead>  
+    <tr>  
+      <th></th>
+      <th>Min</th>  
+      <th>Average</th>  
+      <th>Max</th>  
+    </tr>  
+  </thead> -->
+  <tbody>  
+    <tr>  
+      <td class="id_cell">Latency</th>  
+      <td><%=data.latency%></td>  
+    </tr>  
+    <tr>  
+      <td class="id_cell">Jitter</th>  
+      <td><%=data.jitter%></td>  
+    </tr>
+    <tr>  
+      <td class="id_cell">Packet Loss</th>  
+      <td><%=data.packetsLoss%></td>  
+    </tr> 
+  </tbody>  
+</table>
