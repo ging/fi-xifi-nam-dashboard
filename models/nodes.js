@@ -18,10 +18,10 @@ var get_nodes = function (callback, error_callback) {
             for (var n in nodes) {
                 if (nodes[n].regionId) {
                     if (!nam_nodes[nodes[n].regionId]) {
-                        nam_nodes[nodes[n].regionId] = [{ip: nodes[n].ipAddress, port: nodes[n].port_NAM}];
+                        nam_nodes[nodes[n].regionId] = [{host: nodes[n].hostId, ip: nodes[n].ipAddress, port: nodes[n].port_NAM}];
                     } else {
                         if (nam_nodes[nodes[n].regionId].indexOf(nodes[n].ipAddress) === -1) {
-                            nam_nodes[nodes[n].regionId].push({ip: nodes[n].ipAddress, port: nodes[n].port_NAM});
+                            nam_nodes[nodes[n].regionId].push({host: nodes[n].hostId, ip: nodes[n].ipAddress, port: nodes[n].port_NAM});
                         }
                     }
                 }

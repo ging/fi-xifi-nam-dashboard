@@ -14,7 +14,7 @@ window.onload = function () {
 				    var new_options = nam_nodes[val];
 
 				    for (var o in new_options) {
-				    	$("#" + this.id + "_ip").append("<option>" + new_options[o].ip + "</option>");
+				    	$("#" + this.id + "_ip").append("<option>" + new_options[o].host + "</option>");
 				    }
 			    }
 			    updateSelectBoxes();

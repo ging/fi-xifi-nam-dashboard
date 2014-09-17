@@ -32,7 +32,7 @@
               <select id="source_ip">
                 <%for (var i in nodes[Object.keys(nodes)[0]]) {
                   %>
-                    <option><%=nodes[Object.keys(nodes)[0]][i].ip%></option>
+                    <option><%=nodes[Object.keys(nodes)[0]][i].host%></option>
                   <%
                 }%> 
               </select>
@@ -51,7 +51,7 @@
               <select id="dest_ip">
                 <%for (var i in nodes[Object.keys(nodes)[1]]) {
                   %>
-                    <option><%=nodes[Object.keys(nodes)[1]][i].ip%></option>
+                    <option><%=nodes[Object.keys(nodes)[1]][i].host%></option>
                   <%
                 }%> 
               </select>
