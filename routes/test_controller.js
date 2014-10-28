@@ -14,6 +14,8 @@ var optionsget = {
     method : 'GET' // do GET
 };
 
+var private_direc = '?private=true';
+
 exports.testbdw = function(req, res) {
 
     console.log('[-] Test Band ', req.body);
@@ -31,8 +33,12 @@ exports.testbdw = function(req, res) {
     } else {
         
 	    var path_call_bwctl = "http://"+server+"/monitoring/host2host/bdw/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
-	    console.log('[-] Sending request to', path_call_bwctl);
-   
+
+        if (req.query.direc !== 'public') {
+            path_call_bwctl = path_call_bwctl + private_direc;
+        }
+        console.log('[-] Sending request to', path_call_bwctl);
+
 	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
 	    	if (error) {
                 console.log('[-] Error from NAM server 1 ' + error);
@@ -93,7 +99,10 @@ exports.testow = function(req, res) {
     } else {
     	
     	var path_call_bwctl = "http://"+server+"/monitoring/host2host/owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
-	    
+
+	    if (req.query.direc !== 'public') {
+            path_call_bwctl = path_call_bwctl + private_direc;
+        }
         console.info('[-] Sending request to', path_call_bwctl);
         
 	    superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
@@ -147,6 +156,9 @@ exports.testloss = function(req, res) {
         var path_call_loss = "http://"+server+"/monitoring/host2host/ploss/"+ source + "-" + source1 + ";" + destination+ "-" + destination1;
         //var path_call_loss = "http://"+server+"/monitoring/host2host/ploss/"+ source + "-node03;" + destination+ "-node03";
 
+        if (req.query.direc !== 'public') {
+            path_call_loss = path_call_loss + private_direc;
+        }
         console.log('[-] Sending request to', path_call_loss);
    
         superagent.get(path_call_loss).set('x-auth-token', token).end(function(error, resp) {
@@ -203,7 +215,9 @@ exports.testbdwhist = function(req, res) {
          	} else {
          		
         	    var path_call_bwctl = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/Bdw/"+ source + "-" + source1 + ";" + destination + "-" + destination1 + '/5';
-
+                if (req.query.direc !== 'public') {
+                    path_call_bwctl = path_call_bwctl + private_direc;
+                }
                 console.log('[-] Sending request to', path_call_bwctl);
 
                 superagent.get(path_call_bwctl).set('x-auth-token', token).end(function(error, resp) {
@@ -279,7 +293,9 @@ exports.testowdhist = function(req, res) {
             } else {
           
                 var path_call_owd = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/Owd/"+ source + "-" + source1 + ";" + destination+ "-" + destination1 + '/5';
-
+                if (req.query.direc !== 'public') {
+                    path_call_owd = path_call_owd + private_direc;
+                }
                 console.info('[-] Sending request to', path_call_owd);
 
                 superagent.get(path_call_owd).set('x-auth-token', token).end(function(error, resp){
@@ -351,7 +367,9 @@ exports.testlosshist = function(req, res) {
             } else {
                 
                 var path_call_loss = "http://"+ resp.body[0].ipAddress+":"+ resp.body[0].port_NAM +"/monitoring/history/ploss/"+ source + "-" + source1 + ";" + destination + "-" + destination1 + '/5';
-
+                if (req.query.direc !== 'public') {
+                    path_call_loss = path_call_loss + private_direc;
+                }
                 console.log('[-] Sending request to', path_call_loss);
 
                 superagent.get(path_call_loss).set('x-auth-token', token).end(function(error, resp) {

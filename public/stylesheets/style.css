@@ -47,6 +47,12 @@ body {
 	color: #60C0CE;
 }
 
+.fiware-logo {
+	width: 158px;
+	margin-left: 0px;
+	margin-top: 2px;
+}
+
 #nam_description {
 	padding-left: 15px;
 	padding-right: 15px;

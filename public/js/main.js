@@ -115,9 +115,21 @@ window.onload = function () {
 
 	});
 
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
 	$('#result_modal').on('shown.bs.modal', function (e) {
 
 		if (!current_request.request) {
+
+			console.log('window ', getParameterByName('direc'));
+			if (getParameterByName('direc') === 'public') {
+				current_request.url = current_request.url + '?direc=public';
+			}
 
 			current_request.request = $.ajax({
 			  	type: 'POST',
